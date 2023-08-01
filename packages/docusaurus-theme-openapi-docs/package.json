@@ -1,5 +1,5 @@
 {
-  "name": "docusaurus-theme-openapi-docs",
+  "name": "@mxenabled/docusaurus-theme-openapi-docs",
   "description": "OpenAPI theme for Docusaurus.",
   "version": "1.7.2",
   "license": "MIT",
@@ -15,11 +15,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/PaloAltoNetworks/docusaurus-openapi-docs.git",
+    "url": "https://github.com/mxenabled/docusaurus-openapi-docs.git",
     "directory": "packages/docusaurus-theme-openapi-docs"
   },
   "bugs": {
-    "url": "https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues"
+    "url": "https://github.com/mxenabled/docusaurus-openapi-docs/issues"
   },
   "types": "src/theme-openapi.d.ts",
   "main": "lib/index.js",
@@ -45,13 +45,13 @@
   "dependencies": {
     "@docusaurus/theme-common": ">=2.0.1 <2.3.0",
     "@mdx-js/react": "^1.6.21",
+    "@mxenabled/docusaurus-plugin-openapi-docs": "^1.7.2",
     "@paloaltonetworks/postman-code-generators": "1.1.15-patch.2",
     "@paloaltonetworks/postman-collection": "^4.1.0",
     "@reduxjs/toolkit": "^1.7.1",
     "buffer": "^6.0.3",
     "clsx": "^1.1.1",
     "crypto-js": "^4.1.1",
-    "docusaurus-plugin-openapi-docs": "^1.7.2",
     "file-saver": "^2.0.5",
     "immer": "^9.0.7",
     "lodash": "^4.17.20",

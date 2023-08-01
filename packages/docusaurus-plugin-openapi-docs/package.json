@@ -1,5 +1,5 @@
 {
-  "name": "docusaurus-plugin-openapi-docs",
+  "name": "@mxenabled/docusaurus-plugin-openapi-docs",
   "description": "OpenAPI plugin for Docusaurus.",
   "version": "1.7.2",
   "license": "MIT",
@@ -15,11 +15,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/PaloAltoNetworks/docusaurus-openapi-docs.git",
+    "url": "https://github.com/mxenabled/docusaurus-openapi-docs.git",
     "directory": "packages/docusaurus-plugin-openapi-docs"
   },
   "bugs": {
-    "url": "https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues"
+    "url": "https://github.com/mxenabled/docusaurus-openapi-docs/issues"
   },
   "main": "lib/index.js",
   "types": "src/plugin-openapi.d.ts",
