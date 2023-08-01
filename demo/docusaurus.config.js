@@ -203,7 +203,7 @@ const config = {
 
   plugins: [
     [
-      "docusaurus-plugin-openapi-docs",
+      "@mxenabled/docusaurus-plugin-openapi-docs",
       {
         id: "openapi",
         docsPluginId: "classic",

@@ -82,7 +82,9 @@ function getPluginConfig(plugins: any[], pluginId: string): any {
 }
 
 function getPluginInstances(plugins: any[]): any {
-  return plugins.filter((data) => data[0] === "docusaurus-plugin-openapi-docs");
+  return plugins.filter(
+    (data) => data[0] === "@mxenabled/docusaurus-plugin-openapi-docs"
+  );
 }
 
 export default function pluginOpenAPIDocs(

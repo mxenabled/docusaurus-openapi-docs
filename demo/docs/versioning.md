@@ -79,7 +79,7 @@ Import:
 ```javascript
 const {
   versionSelector,
-} = require("docusaurus-plugin-openapi-docs/lib/sidebars/utils"); // imports utility
+} = require("@mxenabled/docusaurus-plugin-openapi-docs/lib/sidebars/utils"); // imports utility
 const petstoreVersions = require("./docs/petstore/versions.json"); // imports Petstore versions.json
 ```
 
@@ -103,7 +103,7 @@ Import:
 ```javascript
 const {
   versionCrumb,
-} = require("docusaurus-plugin-openapi-docs/lib/sidebars/utils");
+} = require("@mxenabled/docusaurus-plugin-openapi-docs/lib/sidebars/utils");
 ```
 
 Add to existing sidebar:

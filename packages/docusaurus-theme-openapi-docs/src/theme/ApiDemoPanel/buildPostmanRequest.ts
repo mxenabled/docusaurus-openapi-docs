@@ -5,13 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import sdk from "@paloaltonetworks/postman-collection";
-import { AuthState, Scheme } from "@theme/ApiDemoPanel/Authorization/slice";
-import { Body, Content } from "@theme/ApiDemoPanel/Body/slice";
 import {
   ParameterObject,
   ServerObject,
-} from "docusaurus-plugin-openapi-docs/src/openapi/types";
+} from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
+import sdk from "@paloaltonetworks/postman-collection";
+import { AuthState, Scheme } from "@theme/ApiDemoPanel/Authorization/slice";
+import { Body, Content } from "@theme/ApiDemoPanel/Body/slice";
 import cloneDeep from "lodash/cloneDeep";
 
 type Param = {

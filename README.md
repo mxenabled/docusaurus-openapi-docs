@@ -322,3 +322,8 @@ yarn watch:demo
 See [SUPPORT.md](https://github.com/mxenabled/docusaurus-openapi-docs/blob/main/SUPPORT.md) for our support agreement and guidelines.
 
 If you believe you found a bug or have an idea you'd like to suggest you may [report an issue](https://github.com/mxenabled/docusaurus-openapi-docs/issues/new/choose) or [start a discussion](https://github.com/mxenabled/docusaurus-openapi-docs/discussions/new/choose).
+
+## TO DO
+
+- [ ] Add `demo/` site to demonstrate custom changes made to this fork
+- [ ] Add tests to validate custom changes made to this fork

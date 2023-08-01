@@ -12,7 +12,7 @@ const petstoreVersions = require("./docs/petstore_versioned/versions.json");
 const {
   versionSelector,
   versionCrumb,
-} = require("docusaurus-plugin-openapi-docs/lib/sidebars/utils");
+} = require("@mxenabled/docusaurus-plugin-openapi-docs/lib/sidebars/utils");
 
 const sidebars = {
   tutorialSidebar: [
