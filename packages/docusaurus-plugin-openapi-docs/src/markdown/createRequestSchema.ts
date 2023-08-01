@@ -48,6 +48,8 @@ export function mergeAllOf(allOf: SchemaObject[]) {
   return { mergedSchemas, required };
 }
 
+// TODO: update this for new table format so we can update its return value
+// to be just the Table data object instead of a component
 /**
  * For handling nested anyOf/oneOf.
  */
@@ -164,15 +166,28 @@ function createAdditionalProperties(schema: SchemaObject) {
   const type: string | unknown = additionalProperties?.type;
   // Handle free-form objects
   if (String(additionalProperties) === "true" && schema.type === "object") {
-    return create("SchemaItem", {
-      name: "property name*",
+    return {
+      field: "property name*",
       required: false,
-      schemaName: "any",
+      type: "any",
       qualifierMessage: getQualifierMessage(schema.additionalProperties),
-      schema: schema,
+      schema,
       collapsible: false,
       discriminator: false,
-    });
+      description: schema.description
+        ? createDescription(schema.description).trim()
+        : null,
+    };
+
+    // return create("SchemaItem", {
+    //   name: "property name*",
+    //   required: false,
+    //   schemaName: "any",
+    //   qualifierMessage: getQualifierMessage(schema.additionalProperties),
+    //   schema: schema,
+    //   collapsible: false,
+    //   discriminator: false,
+    // });
   }
   if (
     (type === "object" || type === "array") &&
@@ -209,28 +224,57 @@ function createAdditionalProperties(schema: SchemaObject) {
       const schemaName = getSchemaName(
         schema.additionalProperties?.additionalProperties!
       );
-      return create("SchemaItem", {
-        name: "property name*",
+
+      return {
+        field: "property name*",
         required: false,
-        schemaName: schemaName ?? type,
+        type: schemaName ?? type,
         qualifierMessage:
           schema.additionalProperties ??
           getQualifierMessage(schema.additionalProperties),
-        schema: schema,
+        schema,
         collapsible: false,
         discriminator: false,
-      });
+        description: schema.description
+          ? createDescription(schema.description).trim()
+          : null,
+      };
+
+      // return create("SchemaItem", {
+      //   name: "property name*",
+      //   required: false,
+      //   schemaName: schemaName ?? type,
+      //   qualifierMessage:
+      //     schema.additionalProperties ??
+      //     getQualifierMessage(schema.additionalProperties),
+      //   schema: schema,
+      //   collapsible: false,
+      //   discriminator: false,
+      // });
     }
     const schemaName = getSchemaName(schema.additionalProperties!);
-    return create("SchemaItem", {
-      name: "property name*",
+    return {
+      field: "property name*",
       required: false,
-      schemaName: schemaName,
+      type: schemaName,
       qualifierMessage: getQualifierMessage(schema),
       schema: schema.additionalProperties,
       collapsible: false,
       discriminator: false,
-    });
+      description: schema.description
+        ? createDescription(schema.description).trim()
+        : null,
+    };
+
+    // return create("SchemaItem", {
+    //   name: "property name*",
+    //   required: false,
+    //   schemaName: schemaName,
+    //   qualifierMessage: getQualifierMessage(schema),
+    //   schema: schema.additionalProperties,
+    //   collapsible: false,
+    //   discriminator: false,
+    // });
   }
   return Object.entries(schema.additionalProperties!).map(([key, val]) =>
     createEdges({
@@ -246,27 +290,32 @@ function createAdditionalProperties(schema: SchemaObject) {
 // TODO: figure out how to handle array of objects
 function createItems(schema: SchemaObject) {
   if (schema.items?.properties !== undefined) {
-    return [
-      createOpeningArrayBracket(),
-      createProperties(schema.items),
-      createClosingArrayBracket(),
-    ].flat();
+    return [createProperties(schema.items)].flat();
+
+    // return [
+    //   createOpeningArrayBracket(),
+    //   createProperties(schema.items),
+    //   createClosingArrayBracket(),
+    // ].flat();
   }
 
   if (schema.items?.additionalProperties !== undefined) {
-    return [
-      createOpeningArrayBracket(),
-      createAdditionalProperties(schema.items),
-      createClosingArrayBracket(),
-    ].flat();
+    return [createAdditionalProperties(schema.items)].flat();
+    // return [
+    //   createOpeningArrayBracket(),
+    //   createAdditionalProperties(schema.items),
+    //   createClosingArrayBracket(),
+    // ].flat();
   }
 
   if (schema.items?.oneOf !== undefined || schema.items?.anyOf !== undefined) {
-    return [
-      createOpeningArrayBracket(),
-      createAnyOneOf(schema.items!),
-      createClosingArrayBracket(),
-    ].flat();
+    return [createAnyOneOf(schema.items!)].flat();
+
+    // return [
+    //   createOpeningArrayBracket(),
+    //   createAnyOneOf(schema.items!),
+    //   createClosingArrayBracket(),
+    // ].flat();
   }
 
   if (schema.items?.allOf !== undefined) {
@@ -284,10 +333,10 @@ function createItems(schema: SchemaObject) {
       mergedSchemas.properties
     ) {
       return [
-        createOpeningArrayBracket(),
+        // createOpeningArrayBracket(),
         createAnyOneOf(mergedSchemas),
         createProperties(mergedSchemas),
-        createClosingArrayBracket(),
+        // createClosingArrayBracket(),
       ].flat();
     }
 
@@ -297,18 +346,18 @@ function createItems(schema: SchemaObject) {
       mergedSchemas.anyOf !== undefined
     ) {
       return [
-        createOpeningArrayBracket(),
+        // createOpeningArrayBracket(),
         createAnyOneOf(mergedSchemas),
-        createClosingArrayBracket(),
+        // createClosingArrayBracket(),
       ].flat();
     }
 
     // Handles properties
     if (mergedSchemas.properties !== undefined) {
       return [
-        createOpeningArrayBracket(),
+        // createOpeningArrayBracket(),
         createProperties(mergedSchemas),
-        createClosingArrayBracket(),
+        // createClosingArrayBracket(),
       ].flat();
     }
   }
@@ -321,15 +370,15 @@ function createItems(schema: SchemaObject) {
     schema.items?.type === "object"
   ) {
     return [
-      createOpeningArrayBracket(),
+      // createOpeningArrayBracket(),
       createNodes(schema.items),
-      createClosingArrayBracket(),
+      // createClosingArrayBracket(),
     ].flat();
   }
 
   // TODO: clean this up or eliminate it?
   return [
-    createOpeningArrayBracket(),
+    // createOpeningArrayBracket(),
     Object.entries(schema.items!).map(([key, val]) =>
       createEdges({
         name: key,
@@ -339,7 +388,7 @@ function createItems(schema: SchemaObject) {
           : false,
       })
     ),
-    createClosingArrayBracket(),
+    // createClosingArrayBracket(),
   ].flat();
 }
 
@@ -454,70 +503,87 @@ function createDetailsNode(
   required: string[] | boolean,
   nullable: boolean | unknown
 ): any {
-  return create("SchemaItem", {
-    collapsible: true,
-    className: "schemaItem",
-    children: [
-      createDetails({
-        children: [
-          createDetailsSummary({
-            children: [
-              create("strong", { children: name }),
-              create("span", {
-                style: { opacity: "0.6" },
-                children: ` ${schemaName}`,
-              }),
-              guard(
-                (schema.nullable && schema.nullable === true) ||
-                  (nullable && nullable === true),
-                () => [
-                  create("strong", {
-                    style: {
-                      fontSize: "var(--ifm-code-font-size)",
-                      color: "var(--openapi-nullable)",
-                    },
-                    children: " nullable",
-                  }),
-                ]
-              ),
-              guard(
-                Array.isArray(required)
-                  ? required.includes(name)
-                  : required === true,
-                () => [
-                  create("strong", {
-                    style: {
-                      fontSize: "var(--ifm-code-font-size)",
-                      color: "var(--openapi-required)",
-                    },
-                    children: " required",
-                  }),
-                ]
-              ),
-            ],
-          }),
-          create("div", {
-            style: { marginLeft: "1rem" },
-            children: [
-              guard(getQualifierMessage(schema), (message) =>
-                create("div", {
-                  style: { marginTop: ".5rem", marginBottom: ".5rem" },
-                  children: createDescription(message),
-                })
-              ),
-              guard(schema.description, (description) =>
-                create("div", {
-                  style: { marginTop: ".5rem", marginBottom: ".5rem" },
-                  children: createDescription(description),
-                })
-              ),
-              createNodes(schema),
-            ],
-          }),
-        ],
-      }),
-    ],
-  });
+  let nodes = createNodes(schema);
+
+  if (!Array.isArray(nodes)) {
+    nodes = [nodes];
+  }
+
+  return {
+    field: name,
+    type: schemaName,
+    required,
+    description: schema.description
+      ? createDescription(schema.description).trim()
+      : null,
+    subfields: nodes.filter(Boolean),
+    schema,
+  };
+
+  // return create("SchemaItem", {
+  //   collapsible: true,
+  //   className: "schemaItem",
+  //   children: [
+  //     createDetails({
+  //       children: [
+  //         createDetailsSummary({
+  //           children: [
+  //             create("strong", { children: name }),
+  //             create("span", {
+  //               style: { opacity: "0.6" },
+  //               children: ` ${schemaName}`,
+  //             }),
+  //             guard(
+  //               (schema.nullable && schema.nullable === true) ||
+  //                 (nullable && nullable === true),
+  //               () => [
+  //                 create("strong", {
+  //                   style: {
+  //                     fontSize: "var(--ifm-code-font-size)",
+  //                     color: "var(--openapi-nullable)",
+  //                   },
+  //                   children: " nullable",
+  //                 }),
+  //               ]
+  //             ),
+  //             guard(
+  //               Array.isArray(required)
+  //                 ? required.includes(name)
+  //                 : required === true,
+  //               () => [
+  //                 create("strong", {
+  //                   style: {
+  //                     fontSize: "var(--ifm-code-font-size)",
+  //                     color: "var(--openapi-required)",
+  //                   },
+  //                   children: " required",
+  //                 }),
+  //               ]
+  //             ),
+  //           ],
+  //         }),
+  //         create("div", {
+  //           style: { marginLeft: "1rem" },
+  //           children: [
+  //             guard(getQualifierMessage(schema), (message) =>
+  //               create("div", {
+  //                 style: { marginTop: ".5rem", marginBottom: ".5rem" },
+  //                 children: createDescription(message),
+  //               })
+  //             ),
+  //             guard(schema.description, (description) =>
+  //               create("div", {
+  //                 style: { marginTop: ".5rem", marginBottom: ".5rem" },
+  //                 children: createDescription(description),
+  //               })
+  //             ),
+  //             createNodes(schema),
+  //           ],
+  //         }),
+  //       ],
+  //     }),
+  //   ],
+  // });
 }
 
 function createOneOfProperty(
@@ -527,95 +593,112 @@ function createOneOfProperty(
   required: string[] | boolean,
   nullable: boolean | unknown
 ): any {
-  return create("SchemaItem", {
-    collapsible: true,
-    className: "schemaItem",
-    children: [
-      createDetails({
-        children: [
-          createDetailsSummary({
-            children: [
-              create("strong", { children: name }),
-              create("span", {
-                style: { opacity: "0.6" },
-                children: ` ${schemaName}`,
-              }),
-              guard(
-                (schema.nullable && schema.nullable === true) ||
-                  (nullable && nullable === true),
-                () => [
-                  create("strong", {
-                    style: {
-                      fontSize: "var(--ifm-code-font-size)",
-                      color: "var(--openapi-nullable)",
-                    },
-                    children: " nullable",
-                  }),
-                ]
-              ),
-              guard(
-                Array.isArray(required)
-                  ? required.includes(name)
-                  : required === true,
-                () => [
-                  create("strong", {
-                    style: {
-                      fontSize: "var(--ifm-code-font-size)",
-                      color: "var(--openapi-required)",
-                    },
-                    children: " required",
-                  }),
-                ]
-              ),
-            ],
-          }),
-          create("div", {
-            style: { marginLeft: "1rem" },
-            children: [
-              guard(getQualifierMessage(schema), (message) =>
-                create("div", {
-                  style: { marginTop: ".5rem", marginBottom: ".5rem" },
-                  children: createDescription(message),
-                })
-              ),
-              guard(schema.description, (description) =>
-                create("div", {
-                  style: { marginTop: ".5rem", marginBottom: ".5rem" },
-                  children: createDescription(description),
-                })
-              ),
-            ],
-          }),
-          create("div", {
-            children: [
-              create("span", {
-                className: "badge badge--info",
-                children: "oneOf",
-              }),
-              create("SchemaTabs", {
-                children: schema["oneOf"]!.map((property, index) => {
-                  const label = property.type ?? `MOD${index + 1}`;
-                  return create("TabItem", {
-                    label: label,
-                    value: `${index}-property`,
-                    children: [
-                      create("p", { children: label }),
-                      guard(schema.description, (description) =>
-                        create("div", {
-                          style: { marginTop: ".5rem", marginBottom: ".5rem" },
-                          children: createDescription(description),
-                        })
-                      ),
-                    ],
-                  });
-                }),
-              }),
-            ],
-          }),
-        ],
-      }),
-    ],
-  });
+  let nodes = createNodes(schema);
+
+  if (!Array.isArray(nodes)) {
+    nodes = [nodes];
+  }
+
+  return {
+    field: name,
+    type: schemaName,
+    required,
+    description: schema.description
+      ? createDescription(schema.description).trim()
+      : null,
+    subfields: nodes.filter(Boolean),
+    schema,
+  };
+
+  // return create("SchemaItem", {
+  //   collapsible: true,
+  //   className: "schemaItem",
+  //   children: [
+  //     createDetails({
+  //       children: [
+  //         createDetailsSummary({
+  //           children: [
+  //             create("strong", { children: name }),
+  //             create("span", {
+  //               style: { opacity: "0.6" },
+  //               children: ` ${schemaName}`,
+  //             }),
+  //             guard(
+  //               (schema.nullable && schema.nullable === true) ||
+  //                 (nullable && nullable === true),
+  //               () => [
+  //                 create("strong", {
+  //                   style: {
+  //                     fontSize: "var(--ifm-code-font-size)",
+  //                     color: "var(--openapi-nullable)",
+  //                   },
+  //                   children: " nullable",
+  //                 }),
+  //               ]
+  //             ),
+  //             guard(
+  //               Array.isArray(required)
+  //                 ? required.includes(name)
+  //                 : required === true,
+  //               () => [
+  //                 create("strong", {
+  //                   style: {
+  //                     fontSize: "var(--ifm-code-font-size)",
+  //                     color: "var(--openapi-required)",
+  //                   },
+  //                   children: " required",
+  //                 }),
+  //               ]
+  //             ),
+  //           ],
+  //         }),
+  //         create("div", {
+  //           style: { marginLeft: "1rem" },
+  //           children: [
+  //             guard(getQualifierMessage(schema), (message) =>
+  //               create("div", {
+  //                 style: { marginTop: ".5rem", marginBottom: ".5rem" },
+  //                 children: createDescription(message),
+  //               })
+  //             ),
+  //             guard(schema.description, (description) =>
+  //               create("div", {
+  //                 style: { marginTop: ".5rem", marginBottom: ".5rem" },
+  //                 children: createDescription(description),
+  //               })
+  //             ),
+  //           ],
+  //         }),
+  //         create("div", {
+  //           children: [
+  //             create("span", {
+  //               className: "badge badge--info",
+  //               children: "oneOf",
+  //             }),
+  //             create("SchemaTabs", {
+  //               children: schema["oneOf"]!.map((property, index) => {
+  //                 const label = property.type ?? `MOD${index + 1}`;
+  //                 return create("TabItem", {
+  //                   label: label,
+  //                   value: `${index}-property`,
+  //                   children: [
+  //                     create("p", { children: label }),
+  //                     guard(schema.description, (description) =>
+  //                       create("div", {
+  //                         style: { marginTop: ".5rem", marginBottom: ".5rem" },
+  //                         children: createDescription(description),
+  //                       })
+  //                     ),
+  //                   ],
+  //                 });
+  //               }),
+  //             }),
+  //           ],
+  //         }),
+  //       ],
+  //     }),
+  //   ],
+  // });
 }
 
 /**
@@ -637,27 +720,39 @@ function createPropertyDiscriminator(
     return undefined;
   }
 
-  return create("SchemaItem", {
-    name,
+  return {
+    field: name,
+    type: schemaName,
     required: Array.isArray(required) ? required.includes(name) : required,
-    schemaName: schemaName,
-    qualifierMessage: getQualifierMessage(schema),
-    schema: schema,
-    collapsible: false,
+    description: schema.description
+      ? createDescription(schema.description).trim()
+      : null,
     discriminator: true,
-    children: [
-      create("DiscriminatorTabs", {
-        children: Object.keys(discriminator?.mapping!).map((key, index) => {
-          const label = key;
-          return create("TabItem", {
-            label: label,
-            value: `${index}-item-discriminator`,
-            children: createNodes(discriminator?.mapping[key]),
-          });
-        }),
-      }),
-    ],
-  });
+    qualifierMessage: getQualifierMessage(schema),
+    schema,
+  };
+
+  // return create("SchemaItem", {
+  //   name,
+  //   required: Array.isArray(required) ? required.includes(name) : required,
+  //   schemaName: schemaName,
+  //   qualifierMessage: getQualifierMessage(schema),
+  //   schema: schema,
+  //   collapsible: false,
+  //   discriminator: true,
+  //   children: [
+  //     create("DiscriminatorTabs", {
+  //       children: Object.keys(discriminator?.mapping!).map((key, index) => {
+  //         const label = key;
+  //         return create("TabItem", {
+  //           label: label,
+  //           value: `${index}-item-discriminator`,
+  //           children: createNodes(discriminator?.mapping[key]),
+  //         });
+  //       }),
+  //     }),
+  //   ],
+  // });
 }
 
 interface EdgeProps {
@@ -754,14 +849,23 @@ function createEdges({
       return undefined;
     }
 
-    return create("SchemaItem", {
-      collapsible: false,
-      name,
+    return {
+      field: name,
+      type: schemaName,
       required: Array.isArray(required) ? required.includes(name) : required,
-      schemaName: schemaName,
+      description: schema.description ? schema.description.trim() : null,
       qualifierMessage: getQualifierMessage(schema),
       schema: mergedSchemas,
-    });
+    };
+
+    // return create("SchemaItem", {
+    //   collapsible: false,
+    //   name,
+    //   required: Array.isArray(required) ? required.includes(name) : required,
+    //   schemaName: schemaName,
+    //   qualifierMessage: getQualifierMessage(schema),
+    //   schema: mergedSchemas,
+    // });
   }
 
   if (schema.properties !== undefined) {
@@ -809,15 +913,24 @@ function createEdges({
     return undefined;
   }
 
-  // primitives and array of non-objects
-  return create("SchemaItem", {
-    collapsible: false,
-    name,
+  return {
+    field: name,
+    type: schemaName,
     required: Array.isArray(required) ? required.includes(name) : required,
-    schemaName: schemaName,
+    description: schema.description ? schema.description.trim() : null,
     qualifierMessage: getQualifierMessage(schema),
-    schema: schema,
-  });
+    schema,
+  };
+
+  // primitives and array of non-objects
+  // return create("SchemaItem", {
+  //   collapsible: false,
+  //   name,
+  //   required: Array.isArray(required) ? required.includes(name) : required,
+  //   schemaName: schemaName,
+  //   qualifierMessage: getQualifierMessage(schema),
+  //   schema: schema,
+  // });
 }
 
 /**
@@ -830,6 +943,8 @@ function createNodes(schema: SchemaObject): any {
   // }
 
   if (schema.oneOf !== undefined || schema.anyOf !== undefined) {
+    // TODO: update this function for new Table format so we can update its return value
+    // to be just the Table data object instead of a component
     nodes.push(createAnyOneOf(schema));
   }
 
@@ -859,6 +974,8 @@ function createNodes(schema: SchemaObject): any {
     return nodes.filter(Boolean).flat();
   }
 
+  // TODO: investigate what this is for so we can update its return value
+  // to be just the Table data object instead of a component
   // primitive
   if (schema.type !== undefined) {
     if (schema.allOf) {
@@ -870,7 +987,7 @@ function createNodes(schema: SchemaObject): any {
             marginBottom: ".5rem",
             marginLeft: "1rem",
           },
-          children: createDescription(schema.allOf[0]),
+          children: [createDescription(schema.allOf[0])],
         });
       }
     }
@@ -880,7 +997,7 @@ function createNodes(schema: SchemaObject): any {
         marginBottom: ".5rem",
         marginLeft: "1rem",
       },
-      children: createDescription(schema.type),
+      children: [createDescription(schema.type)],
     });
   }
 
@@ -931,55 +1048,72 @@ export function createRequestSchema({ title, body, ...rest }: Props) {
       schemaType: "request",
       children: mimeTypes.map((mimeType) => {
         const firstBody = body.content![mimeType].schema;
+
         if (firstBody === undefined) {
           return undefined;
         }
+
         if (firstBody.properties !== undefined) {
           if (Object.keys(firstBody.properties).length === 0) {
             return undefined;
           }
         }
+
+        let nodes = createNodes(firstBody);
+
+        if (!Array.isArray(nodes)) {
+          nodes = [nodes];
+        }
+
         return create("TabItem", {
           label: mimeType,
           value: `${mimeType}`,
           children: [
-            createDetails({
-              "data-collapsed": false,
-              open: true,
-              ...rest,
-              children: [
-                createDetailsSummary({
-                  style: { textAlign: "left" },
-                  children: [
-                    create("strong", { children: `${title}` }),
-                    guard(body.required && body.required === true, () => [
-                      create("strong", {
-                        style: {
-                          fontSize: "var(--ifm-code-font-size)",
-                          color: "var(--openapi-required)",
-                        },
-                        children: " required",
-                      }),
-                    ]),
-                  ],
-                }),
-                create("div", {
-                  style: { textAlign: "left", marginLeft: "1rem" },
-                  children: [
-                    guard(body.description, () => [
-                      create("div", {
-                        style: { marginTop: "1rem", marginBottom: "1rem" },
-                        children: createDescription(body.description),
-                      }),
-                    ]),
-                  ],
-                }),
-                create("ul", {
-                  style: { marginLeft: "1rem" },
-                  children: createNodes(firstBody),
-                }),
-              ],
+            create("RequestBodyDetails", {
+              title,
+              description: body.description
+                ? createDescription(body.description)
+                : null,
+              required: body.required,
+              data: nodes.filter(Boolean), // filter out any null or undefined values
             }),
+            // createDetails({
+            //   "data-collapsed": false,
+            //   open: true,
+            //   ...rest,
+            //   children: [
+            // createDetailsSummary({
+            //   style: { textAlign: "left" },
+            //   children: [
+            //     create("strong", { children: `${title}` }),
+            //     guard(body.required && body.required === true, () => [
+            //       create("strong", {
+            //         style: {
+            //           fontSize: "var(--ifm-code-font-size)",
+            //           color: "var(--openapi-required)",
+            //         },
+            //         children: " required",
+            //       }),
+            //     ]),
+            //   ],
+            // }),
+            // create("div", {
+            //   style: { textAlign: "left", marginLeft: "1rem" },
+            //   children: [
+            //     guard(body.description, () => [
+            //       create("div", {
+            //         style: { marginTop: "1rem", marginBottom: "1rem" },
+            //         children: createDescription(body.description),
+            //       }),
+            //     ]),
+            //   ],
+            // }),
+            // create("ul", {
+            //   style: { marginLeft: "1rem" },
+            //   children: createNodes(firstBody),
+            // }),
+            //   ],
+            // }),
           ],
         });
       }),
@@ -1000,57 +1134,71 @@ export function createRequestSchema({ title, body, ...rest }: Props) {
       return undefined;
     }
   }
-  return create("MimeTabs", {
-    children: [
-      create("TabItem", {
-        label: randomFirstKey,
-        value: `${randomFirstKey}-schema`,
-        children: [
-          createDetails({
-            "data-collapsed": false,
-            open: true,
-            ...rest,
-            children: [
-              createDetailsSummary({
-                style: { textAlign: "left" },
-                children: [
-                  create("strong", { children: `${title}` }),
-                  guard(firstBody.type === "array", (format) =>
-                    create("span", {
-                      style: { opacity: "0.6" },
-                      children: ` array`,
-                    })
-                  ),
-                  guard(body.required, () => [
-                    create("strong", {
-                      style: {
-                        fontSize: "var(--ifm-code-font-size)",
-                        color: "var(--openapi-required)",
-                      },
-                      children: " required",
-                    }),
-                  ]),
-                ],
-              }),
-              create("div", {
-                style: { textAlign: "left", marginLeft: "1rem" },
-                children: [
-                  guard(body.description, () => [
-                    create("div", {
-                      style: { marginTop: "1rem", marginBottom: "1rem" },
-                      children: createDescription(body.description),
-                    }),
-                  ]),
-                ],
-              }),
-              create("ul", {
-                style: { marginLeft: "1rem" },
-                children: createNodes(firstBody),
-              }),
-            ],
-          }),
-        ],
-      }),
-    ],
+
+  let nodes = createNodes(firstBody);
+
+  if (!Array.isArray(nodes)) {
+    nodes = [nodes];
+  }
+
+  return create("RequestBodyDetails", {
+    title,
+    description: body.description ? createDescription(body.description) : null,
+    required: body.required,
+    data: nodes.filter(Boolean), // filter out any null or undefined values,
   });
+
+  // return create("MimeTabs", {
+  //   children: [
+  //     create("TabItem", {
+  //       label: randomFirstKey,
+  //       value: `${randomFirstKey}-schema`,
+  //       children: [
+  //         createDetails({
+  //           "data-collapsed": false,
+  //           open: true,
+  //           ...rest,
+  //           children: [
+  //             createDetailsSummary({
+  //               style: { textAlign: "left" },
+  //               children: [
+  //                 create("strong", { children: `${title}` }),
+  //                 guard(firstBody.type === "array", (format) =>
+  //                   create("span", {
+  //                     style: { opacity: "0.6" },
+  //                     children: ` array`,
+  //                   })
+  //                 ),
+  //                 guard(body.required, () => [
+  //                   create("strong", {
+  //                     style: {
+  //                       fontSize: "var(--ifm-code-font-size)",
+  //                       color: "var(--openapi-required)",
+  //                     },
+  //                     children: " required",
+  //                   }),
+  //                 ]),
+  //               ],
+  //             }),
+  //             create("div", {
+  //               style: { textAlign: "left", marginLeft: "1rem" },
+  //               children: [
+  //                 guard(body.description, () => [
+  //                   create("div", {
+  //                     style: { marginTop: "1rem", marginBottom: "1rem" },
+  //                     children: createDescription(body.description),
+  //                   }),
+  //                 ]),
+  //               ],
+  //             }),
+  //             create("Table", {
+  //               // style: { marginLeft: "1rem" },
+  //               data: createNodes(firstBody)[0],
+  //             }),
+  //           ],
+  //         }),
+  //       ],
+  //     }),
+  //   ],
+  // });
 }

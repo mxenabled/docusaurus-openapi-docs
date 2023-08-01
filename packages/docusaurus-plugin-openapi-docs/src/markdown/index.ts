@@ -59,6 +59,8 @@ export function createApiPageMD({
     `import SchemaItem from "@theme/SchemaItem";\n`,
     `import SchemaTabs from "@theme/SchemaTabs";\n`,
     `import DiscriminatorTabs from "@theme/DiscriminatorTabs";\n`,
+    `import SchemaTable from "@theme/SchemaTable";\n`,
+    `import RequestBodyDetails from "@theme/RequestBodyDetails";\n`,
     `import TabItem from "@theme/TabItem";\n\n`,
     `## ${title.replace(lessThan, "&lt;").replace(greaterThan, "&gt;")}\n\n`,
     frontMatter.show_extensions && createVendorExtensions(extensions),
