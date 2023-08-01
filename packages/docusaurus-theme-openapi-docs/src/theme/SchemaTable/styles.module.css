@@ -39,7 +39,7 @@ table tbody > tr:last-child > td {
 
 table tbody > tr.hasBottomBorder:last-child > td {
   border-bottom: var(--ifm-table-border-width) solid
-  var(--ifm-table-border-color);
+    var(--ifm-table-border-color);
 }
 
 .thead {
@@ -115,7 +115,7 @@ table tbody > tr.hasBottomBorder:last-child > td {
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
-  background-color: #9CA3AF;
+  background-color: #9ca3af;
 }
 
 .isRequired::before {
