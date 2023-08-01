@@ -28,6 +28,12 @@ OpenAPI plugin for generating API reference docs in Docusaurus v2.
 
 ## Overview
 
+This is a forked version of the `docusaurus-plugin-openapi-docs` package that has been updated to meet specific needs of the MX organization.
+
+- Upgrade to MDX v2
+- Customize the page layout for API reference docs
+- Creation of custom table component, w/ limited out-of-the-box styling
+
 The `docusaurus-plugin-openapi-docs` package extends the Docusaurus CLI with commands for generating MDX using the OpenAPI specification as the source. The resulting MDX is fully compatible with [plugin-content-docs](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs) and can be used to render beautiful reference API docs by setting `docItemComponent` to `@theme/ApiItem`, a custom component included in the `docusaurus-theme-openapi-docs` theme.
 
 Key Features:
@@ -265,7 +271,7 @@ yarn docusaurus gen-api-docs:version petstore:all
 
 ## Installing from Template
 
-Run the following to bootstrap a Docsaurus v2 site (classic theme) with `docusaurus-openapi-docs`:
+Run the following to bootstrap a Docusaurus v2 site (classic theme) with `docusaurus-openapi-docs`:
 
 ```bash
 npx create-docusaurus@2.1.0 my-website --package-manager yarn
