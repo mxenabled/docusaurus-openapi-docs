@@ -141,20 +141,21 @@ The `docusaurus-plugin-openapi-docs` plugin can be configured with the following
 
 `config` can be configured with the following options:
 
-| Name             | Type      | Default | Description                                                                                                                 |
-| ---------------- | --------- | ------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `specPath`       | `string`  | `null`  | Designated URL or path to the source of an OpenAPI specification file or directory of multiple OpenAPI specification files. |
-| `ouputDir`       | `string`  | `null`  | Desired output path for generated MDX files.                                                                                |
-| `proxy`          | `string`  | `null`  | _Optional:_ Proxy URL to prepend to base URL when performing API requests from browser.                                     |
-| `template`       | `string`  | `null`  | _Optional:_ Customize MDX content with a desired template.                                                                  |
-| `downloadUrl`    | `string`  | `null`  | _Optional:_ Designated URL for downloading OpenAPI specification. (requires `info` section/doc)                             |
-| `hideSendButton` | `boolean` | `null`  | _Optional:_ If set to `true`, hides the "Send API Request" button in API demo panel                                         |
-| `showExtensions` | `boolean` | `null`  | _Optional:_ If set to `true`, renders operation-level vendor-extensions in description.                                     |
-| `sidebarOptions` | `object`  | `null`  | _Optional:_ Set of options for sidebar configuration. See below for a list of supported options.                            |
-| `version`        | `string`  | `null`  | _Optional:_ Version assigned to single or micro-spec API specified in `specPath`.                                           |
-| `label`          | `string`  | `null`  | _Optional:_ Version label used when generating version selector dropdown menu.                                              |
-| `baseUrl`        | `string`  | `null`  | _Optional:_ Version base URL used when generating version selector dropdown menu.                                           |
-| `versions`       | `object`  | `null`  | _Optional:_ Set of options for versioning configuration. See below for a list of supported options.                         |
+| Name                 | Type      | Default | Description                                                                                                                              |
+| -------------------- | --------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `specPath`           | `string`  | `null`  | Designated URL or path to the source of an OpenAPI specification file or directory of multiple OpenAPI specification files.              |
+| `outputDir`          | `string`  | `null`  | Desired output path for generated MDX files.                                                                                             |
+| `proxy`              | `string`  | `null`  | _Optional:_ Proxy URL to prepend to base URL when performing API requests from browser.                                                  |
+| `template`           | `string`  | `null`  | _Optional:_ Customize MDX content with a desired template.                                                                               |
+| `downloadUrl`        | `string`  | `null`  | _Optional:_ Designated URL for downloading OpenAPI specification. (requires `info` section/doc)                                          |
+| `hideSendButton`     | `boolean` | `null`  | _Optional:_ If set to `true`, hides the "Send API Request" button in API demo panel                                                      |
+| `showExtensions`     | `boolean` | `null`  | _Optional:_ If set to `true`, renders operation-level vendor-extensions in description.                                                  |
+| `sidebarOptions`     | `object`  | `null`  | _Optional:_ Set of options for sidebar configuration. See below for a list of supported options.                                         |
+| `version`            | `string`  | `null`  | _Optional:_ Version assigned to single or micro-spec API specified in `specPath`.                                                        |
+| `label`              | `string`  | `null`  | _Optional:_ Version label used when generating version selector dropdown menu.                                                           |
+| `baseUrl`            | `string`  | `null`  | _Optional:_ Version base URL used when generating version selector dropdown menu.                                                        |
+| `versions`           | `object`  | `null`  | _Optional:_ Set of options for versioning configuration. See below for a list of supported options.                                      |
+| `markdownGenerators` | `object`  | `null`  | _Optional:_ Customize MDX content with a set of options for markdown generator configuration. See below for a list of supported options. |
 
 `sidebarOptions` can be configured with the following options:
 
@@ -178,6 +179,16 @@ The `docusaurus-plugin-openapi-docs` plugin can be configured with the following
 | `baseUrl`  | `string` | `null`  | _Optional:_ Version base URL used when generating version selector dropdown menu.                                        |
 
 > All versions will automatically inherit `sidebarOptions` from the parent/base config.
+
+### markdownGenerators
+
+`markdownGenerators` can be configured with the following options:
+
+| Name               | Type       | Default | Description                                                                                                                                |
+| ------------------ | ---------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `createApiPageMD`  | `function` | `null`  | _Optional:_ Returns a string of the raw markdown body for API pages.<br/><br/>**Function type:** `(pageData: ApiPageMetadata) => string`   |
+| `createInfoPageMD` | `function` | `null`  | _Optional:_ Returns a string of the raw markdown body for info pages.<br/><br/>**Function type:** `(pageData: InfoPageMetadata) => string` |
+| `createTagPageMD`  | `function` | `null`  | _Optional:_ Returns a string of the raw markdown body for tag pages.<br/><br/>**Function type:** `(pageData: TagPageMetadata) => string`   |
 
 ## CLI Usage
 
@@ -274,7 +285,7 @@ yarn docusaurus gen-api-docs:version petstore:all
 Run the following to bootstrap a Docusaurus v2 site (classic theme) with `docusaurus-openapi-docs`:
 
 ```bash
-npx create-docusaurus@2.1.0 my-website --package-manager yarn
+npx create-docusaurus@2.2.0 my-website --package-manager yarn
 ```
 
 > When prompted to select a template choose `Git repository`.
@@ -296,7 +307,7 @@ yarn
 
 > Looking to make a contribution? Make sure to checkout out our contributing guide.
 
-After [forking](https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/fork) the main repository, run the following:
+After [forking](https://github.com/mxenabled/docusaurus-openapi-docs/fork) the main repository, run the following:
 
 ```bash
 git clone https://github.com/<your account>/docusaurus-openapi-docs.git
@@ -306,20 +317,8 @@ yarn build-packages
 yarn watch:demo
 ```
 
-## Credits
-
-Special thanks to @bourdakos1 (Nick Bourdakos), the author of [docusaurus-openapi](https://github.com/cloud-annotations/docusaurus-openapi), which this project is heavily based on.
-
-For more insight into why we decided to completely fork see [#47](https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/pull/47)
-
-## Contributors
-
-<a href="https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=PaloAltoNetworks/docusaurus-openapi-docs" />
-</a>
-
 ## Support
 
-See [SUPPORT.md](https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/blob/main/SUPPORT.md) for our support agreement and guidelines.
+See [SUPPORT.md](https://github.com/mxenabled/docusaurus-openapi-docs/blob/main/SUPPORT.md) for our support agreement and guidelines.
 
-If you believe you found a bug or have an idea you'd like to suggest you may [report an issue](https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/issues/new/choose) or [start a discussion](https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/discussions/new/choose).
+If you believe you found a bug or have an idea you'd like to suggest you may [report an issue](https://github.com/mxenabled/docusaurus-openapi-docs/issues/new/choose) or [start a discussion](https://github.com/mxenabled/docusaurus-openapi-docs/discussions/new/choose).
