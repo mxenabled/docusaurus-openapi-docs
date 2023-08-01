@@ -48,13 +48,13 @@ Key Features:
 Plugin:
 
 ```bash
-yarn add docusaurus-plugin-openapi-docs
+yarn add @mxenabled/docusaurus-plugin-openapi-docs
 ```
 
 Theme:
 
 ```bash
-yarn add docusaurus-theme-openapi-docs
+yarn add @mxenabled/docusaurus-theme-openapi-docs
 ```
 
 ## Compatibility Matrix
@@ -102,7 +102,7 @@ Here is an example of properly configuring your `docusaurus.config.js` file for 
 
   plugins: [
     [
-      'docusaurus-plugin-openapi-docs',
+      '@mxenabled/docusaurus-plugin-openapi-docs',
       {
         id: "apiDocs",
         docsPluginId: "classic",
@@ -122,7 +122,7 @@ Here is an example of properly configuring your `docusaurus.config.js` file for 
       },
     ]
   ],
-  themes: ["docusaurus-theme-openapi-docs"], // Allows use of @theme/ApiItem and other components
+  themes: ["@mxenabled/docusaurus-theme-openapi-docs"], // Allows use of @theme/ApiItem and other components
 }
 ```
 
@@ -293,7 +293,7 @@ npx create-docusaurus@2.2.0 my-website --package-manager yarn
 Template Repository URL:
 
 ```bash
-https://github.com/PaloAltoNetworks/docusaurus-template-openapi-docs.git
+https://github.com/@mxenabled/docusaurus-template-openapi-docs.git
 ```
 
 > When asked how the template repo should be cloned choose "copy" (unless you know better).
