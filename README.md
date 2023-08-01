@@ -28,7 +28,7 @@ OpenAPI plugin for generating API reference docs in Docusaurus v2.
 
 ## Overview
 
-This is a forked version of the `docusaurus-plugin-openapi-docs` package that has been updated to meet specific needs of the MX organization.
+This is a forked version of the [`docusaurus-plugin-openapi-docs` package](https://github.com/PaloAltoNetworks/docusaurus-openapi-docs) that has been updated to meet specific needs of the MX organization.
 
 - Upgrade to MDX v2
 - Customize the page layout for API reference docs
