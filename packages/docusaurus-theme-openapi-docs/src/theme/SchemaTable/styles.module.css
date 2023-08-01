@@ -1,0 +1,145 @@
+.tableContainer {
+  /* "text-sm bg-white border border-solid border-neutral-300 rounded-lg w-full p-4 pt-8 overflow-hidden"
+   */
+  font-size: 0.875rem;
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  width: 100%;
+  padding: 1rem;
+  padding-top: 2rem;
+  overflow: hidden;
+}
+
+.tableParent {
+  table-layout: fixed;
+}
+
+.table {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}
+
+table tbody > tr:first-child {
+  border-top: none;
+}
+
+table tbody > tr:last-child {
+  border-bottom-width: 0;
+}
+
+table tbody > tr:first-child > td {
+  border-top: none;
+}
+
+table tbody > tr:last-child > td {
+  border-bottom-width: 0;
+}
+
+table tbody > tr.hasBottomBorder:last-child > td {
+  border-bottom: var(--ifm-table-border-width) solid
+  var(--ifm-table-border-color);
+}
+
+.thead {
+  font-weight: 600;
+  text-align: left;
+}
+
+.fieldTh {
+  width: calc(100% - 117px - 76px);
+}
+
+.requiredTh {
+  width: 117px;
+}
+
+.typeTh {
+  width: 76px;
+}
+
+.tbody {
+  width: 100%;
+  height: auto;
+}
+
+.tr {
+  width: 100%;
+}
+
+.td {
+  /* padding-right: 1rem; */
+}
+
+.td span {
+  font-weight: semibold;
+}
+
+.td p {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.subfieldButton {
+  display: flex;
+  align-items: center;
+  padding-left: 0;
+}
+
+.subfieldButtonIcon {
+  height: 1.25rem;
+  width: 1.25rem;
+  margin-right: 0.5rem;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.tdType {
+  font-size: 0.75rem;
+  color: #4b5563;
+}
+
+.requiredBubble {
+  position: relative;
+}
+
+.requiredBubble::before {
+  position: absolute;
+  content: "";
+  display: block;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: #9CA3AF;
+}
+
+.isRequired::before {
+  background-color: #ff0000;
+}
+
+.requiredBubble span {
+  margin-left: 1rem;
+}
+
+/* TableRow styles */
+.TableRow {
+  width: 100%;
+}
+
+.TableRowTd {
+  width: 100%;
+  padding: 0;
+  border: none;
+}
+
+.TableRowTable {
+  width: 100%;
+  table-layout: fixed;
+  color: black;
+  margin-bottom: 0;
+}

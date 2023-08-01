@@ -149,7 +149,6 @@ function Curl({ postman, codeSamples }: Props) {
   const accept = useTypedSelector((state: any) => state.accept.value);
   const server = useTypedSelector((state: any) => state.server.value);
   const body = useTypedSelector((state: any) => state.body);
-
   const pathParams = useTypedSelector((state: any) => state.params.path);
   const queryParams = useTypedSelector((state: any) => state.params.query);
   const cookieParams = useTypedSelector((state: any) => state.params.cookie);
