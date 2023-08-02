@@ -1,3 +1,10 @@
+## 1.8.0 (Aug 2, 2023)
+
+High level enhancements
+
+- Refactor `createApiPageMd` function for alternate layout
+- Add new components for alternate layout to make data easier to work with when swizzling components
+
 ## 1.7.2 (Apr 20, 2023)
 
 High level enhancements
