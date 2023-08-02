@@ -7,14 +7,14 @@
 
 import React from "react";
 
-import CodeBlock from "@theme/CodeBlock";
 /* eslint-disable import/no-extraneous-dependencies*/
-import { createDescription } from "docusaurus-theme-openapi-docs/lib/markdown/createDescription";
+import { createDescription } from "@mxenabled/docusaurus-theme-openapi-docs/lib/markdown/createDescription";
 /* eslint-disable import/no-extraneous-dependencies*/
 import {
   guard,
   toString,
-} from "docusaurus-theme-openapi-docs/lib/markdown/utils";
+} from "@mxenabled/docusaurus-theme-openapi-docs/lib/markdown/utils";
+import CodeBlock from "@theme/CodeBlock";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 

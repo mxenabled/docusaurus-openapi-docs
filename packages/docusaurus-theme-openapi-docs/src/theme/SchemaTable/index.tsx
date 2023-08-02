@@ -109,6 +109,7 @@ const initialData: RowType[] = [
 type TableProps = {
   data?: RowType[];
   isBodyRequired?: boolean;
+  isParentTable?: boolean;
 };
 
 const Table = ({ data = initialData, isBodyRequired }: TableProps) => {

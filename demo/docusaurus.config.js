@@ -259,7 +259,7 @@ const config = {
       },
     ],
   ],
-  themes: ["docusaurus-theme-openapi-docs"],
+  themes: ["@mxenabled/docusaurus-theme-openapi-docs"],
   stylesheets: [
     {
       href: "https://use.fontawesome.com/releases/v5.11.0/css/all.css",

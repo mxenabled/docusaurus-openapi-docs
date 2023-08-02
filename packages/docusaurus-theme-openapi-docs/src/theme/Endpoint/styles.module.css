@@ -1,0 +1,73 @@
+.container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  background-color: var(--ifm-color-emphasis-100);
+  margin-bottom: 1.5rem;
+}
+
+.textWrapper {
+  display: flex;
+  width: 100%;
+}
+
+.method {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: flex-start;
+  margin-right: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  color: var(--ifm-tabs-color-active);
+  background-color: var(--ifm-tabs-background-active);
+}
+
+.method.put {
+  background-color: var(--openapi-code-purple);
+}
+
+.method.post {
+  background-color: var(--openapi-code-green);
+}
+
+.method.delete {
+  background-color: var(--openapi-code-red);
+}
+
+.method.patch {
+  background-color: var(--openapi-code-orange);
+}
+
+.path {
+  word-break: break-all;
+  width: 100%;
+  margin-right: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.copyButtonContainer {
+  height: 18px;
+  width: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  position: relative;
+}
+
+.copyButton {
+  color: var(--ifm-color-emphasis-600);
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

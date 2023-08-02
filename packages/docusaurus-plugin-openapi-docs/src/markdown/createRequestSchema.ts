@@ -1135,14 +1135,25 @@ export function createRequestSchema({ title, body, ...rest }: Props) {
 
   let nodes = createNodes(firstBody);
 
+  const requestBodyProps = {
+    title,
+    description: body.description ? createDescription(body.description) : null,
+    required: body.required,
+  };
+
+  if (typeof nodes === "string") {
+    const content = nodes.trim();
+    return (
+      create("RequestBodyDetailsBase", requestBodyProps) + `\n\n${content}\n\n`
+    );
+  }
+
   if (!Array.isArray(nodes)) {
     nodes = [nodes];
   }
 
   return create("RequestBodyDetails", {
-    title,
-    description: body.description ? createDescription(body.description) : null,
-    required: body.required,
+    ...requestBodyProps,
     data: nodes.filter(Boolean), // filter out any null or undefined values,
   });
 

@@ -78,7 +78,7 @@ Here is an example of properly configuring your `docusaurus.config.js` file for 
 ],
 
   plugins: [
-      'docusaurus-plugin-openapi-docs',
+      '@mxenabled/docusaurus-plugin-openapi-docs',
       {
         id: "apiDocs",
         docsPluginId: "classic",
@@ -98,7 +98,7 @@ Here is an example of properly configuring your `docusaurus.config.js` file for 
       },
     ]
   ],
-  themes: ["docusaurus-theme-openapi-docs"] // Allows use of @theme/ApiItem and other components
+  themes: ["@mxenabled/docusaurus-theme-openapi-docs"] // Allows use of @theme/ApiItem and other components
 }
 ```
 

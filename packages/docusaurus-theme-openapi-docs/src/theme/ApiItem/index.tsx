@@ -5,6 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
+import zlib from "zlib";
+
 import React from "react";
 
 import BrowserOnly from "@docusaurus/BrowserOnly";
@@ -45,9 +47,18 @@ interface ApiFrontMatter extends DocFrontMatter {
 export default function ApiItem(props: Props): JSX.Element {
   const docHtmlClassName = `docs-doc-id-${props.content.metadata.unversionedId}`;
   const MDXComponent = props.content;
-  const { frontMatter } = MDXComponent;
+  const { frontMatter, metadata } = MDXComponent;
+  const { title } = metadata;
   const { info_path: infoPath } = frontMatter as DocFrontMatter;
-  const { api } = frontMatter as ApiFrontMatter;
+  let { api } = frontMatter as ApiFrontMatter;
+
+  // decompress and parse
+  if (api) {
+    api = JSON.parse(
+      zlib.inflateSync(Buffer.from(api as any, "base64")).toString()
+    );
+  }
+
   const { siteConfig } = useDocusaurusContext();
   const themeConfig = siteConfig.themeConfig as ThemeConfig;
   const options = themeConfig.api;
@@ -133,6 +144,7 @@ export default function ApiItem(props: Props): JSX.Element {
           <DocItemMetadata />
           <DocItemLayout>
             <Provider store={store2}>
+              <h1 className="text-2xl mx-0 !mb-12">{title}</h1>
               <div className={clsx("row", "theme-api-markdown")}>
                 <div className="col col--7">
                   <MDXComponent />

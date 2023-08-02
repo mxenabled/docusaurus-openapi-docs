@@ -9,10 +9,10 @@ import {
   SecurityRequirementObject,
   SecuritySchemeObject,
 } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
+import { ThemeConfig } from "@mxenabled/docusaurus-theme-openapi-docs/src/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createStorage, hashArray } from "@theme/ApiDemoPanel/storage-utils";
 /* eslint-disable import/no-extraneous-dependencies*/
-import { ThemeConfig } from "docusaurus-theme-openapi-docs/src/types";
 
 import { getAuthDataKeys } from "./auth-types";
 
