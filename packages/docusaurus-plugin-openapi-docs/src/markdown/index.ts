@@ -8,53 +8,53 @@
 import {
   ContactObject,
   LicenseObject,
-  MediaTypeObject,
+  // MediaTypeObject,
   SecuritySchemeObject,
 } from "../openapi/types";
 import { ApiPageMetadata, InfoPageMetadata, TagPageMetadata } from "../types";
 import { createAuthentication } from "./createAuthentication";
 import { createContactInfo } from "./createContactInfo";
-import { createDeprecationNotice } from "./createDeprecationNotice";
+// import { createDeprecationNotice } from "./createDeprecationNotice";
 import { createDescription } from "./createDescription";
 import { createDownload } from "./createDownload";
 import { createEndpoint } from "./createEndpoint";
 import { createLicense } from "./createLicense";
 import { createLogo } from "./createLogo";
 import { createParamsDetails } from "./createParamsDetails";
-import { createRequestBodyDetails } from "./createRequestBodyDetails";
+// import { createRequestBodyDetails } from "./createRequestBodyDetails";
 import { createRequestSchema } from "./createRequestSchema";
-import { createStatusCodes } from "./createStatusCodes";
+// import { createStatusCodes } from "./createStatusCodes";
 import { createTermsOfService } from "./createTermsOfService";
-import { createVendorExtensions } from "./createVendorExtensions";
+// import { createVendorExtensions } from "./createVendorExtensions";
 import { createVersionBadge } from "./createVersionBadge";
-import { greaterThan, lessThan, render, create } from "./utils";
+import { greaterThan, lessThan, render } from "./utils";
 
-interface Props {
-  title: string;
-  body: {
-    content?: {
-      [key: string]: MediaTypeObject;
-    };
-    description?: string;
-    required?: boolean;
-  };
-}
+// interface Props {
+//   title: string;
+//   body: {
+//     content?: {
+//       [key: string]: MediaTypeObject;
+//     };
+//     description?: string;
+//     required?: boolean;
+//   };
+// }
 
 export function createApiPageMD({
-  title,
+  // title,
   api: {
-    deprecated,
-    "x-deprecated-description": deprecatedDescription,
+    // deprecated,
+    // "x-deprecated-description": deprecatedDescription,
     description,
-    extensions,
+    // extensions,
     parameters,
     requestBody,
-    responses,
+    // responses,
     path,
     method,
   },
-  frontMatter,
-}: ApiPageMetadata) {
+}: // frontMatter,
+ApiPageMetadata) {
   // return render([
   //   `import ApiTabs from "@theme/ApiTabs";\n`,
   //   `import MimeTabs from "@theme/MimeTabs";\n`,

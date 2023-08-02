@@ -5,44 +5,52 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 0.75rem;
-  border-radius: 0.25rem;
-  background-color: var(--ifm-color-emphasis-100);
+  padding: 0.75rem 1rem;
+  border-radius: var(--openapi-card-border-radius);
+  background-color: var(--openapi-card-background-color);
   margin-bottom: 1.5rem;
 }
 
 .textWrapper {
   display: flex;
   width: 100%;
+  align-items: center;
 }
 
 .method {
-  width: fit-content;
+  width: 50px;
+  min-width: 50px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   justify-self: flex-start;
   margin-right: 0.75rem;
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   font-weight: 600;
-  color: var(--ifm-tabs-color-active);
-  background-color: var(--ifm-tabs-background-active);
+  font-size: 0.75rem;
+  color: white;
+  background-color: var(--ifm-color-secondary-darkest);
 }
 
-.method.put {
-  background-color: var(--openapi-code-purple);
+.get {
+  background-color: var(--ifm-color-primary);
 }
 
-.method.post {
+.put {
+  background-color: var(--openapi-code-blue);
+}
+
+.post {
   background-color: var(--openapi-code-green);
 }
 
-.method.delete {
+.delete {
   background-color: var(--openapi-code-red);
 }
 
-.method.patch {
+.patch {
   background-color: var(--openapi-code-orange);
 }
 

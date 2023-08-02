@@ -6,8 +6,8 @@
  * ========================================================================== */
 
 import { ApiItem } from "../types";
-import { createDetails } from "./createDetails";
-import { createDetailsSummary } from "./createDetailsSummary";
+// import { createDetails } from "./createDetails";
+// import { createDetailsSummary } from "./createDetailsSummary";
 import { create } from "./utils";
 
 interface Props {

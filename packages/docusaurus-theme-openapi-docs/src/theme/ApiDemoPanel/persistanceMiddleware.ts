@@ -5,15 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import { ThemeConfig } from "@mxenabled/docusaurus-theme-openapi-docs/src/types";
 import { Middleware } from "@reduxjs/toolkit";
 import {
   setAuthData,
   setSelectedAuth,
 } from "@theme/ApiDemoPanel/Authorization/slice";
 import { AppDispatch, RootState } from "@theme/ApiItem/store";
-/* eslint-disable import/no-extraneous-dependencies*/
 
+import { ThemeConfig } from "../../types";
 import { createStorage, hashArray } from "./storage-utils";
 
 export function createPersistanceMiddleware(options: ThemeConfig["api"]) {

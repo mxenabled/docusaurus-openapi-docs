@@ -21,7 +21,7 @@ export default function Endpoint({ method, path }: EndpointProps) {
   return (
     <div className={styles.container}>
       <div className={styles.textWrapper}>
-        <div className={clsx(styles.method, method)}>
+        <div className={clsx(styles.method, styles[method])}>
           {method.toUpperCase()}
         </div>
         <div className={styles.path}>{path}</div>
