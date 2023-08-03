@@ -15,7 +15,10 @@ import { AppDispatch, RootState } from "@theme/ApiItem/store";
 import { ThemeConfig } from "../../types";
 import { createStorage, hashArray } from "./storage-utils";
 
-export function createPersistanceMiddleware(options: ThemeConfig["api"]) {
+export function createPersistanceMiddleware(
+  options: ThemeConfig["api"],
+  siteTitle: string = ""
+) {
   const persistanceMiddleware: Middleware<{}, RootState, AppDispatch> =
     (storeAPI) => (next) => (action) => {
       const result = next(action);
@@ -53,15 +56,15 @@ export function createPersistanceMiddleware(options: ThemeConfig["api"]) {
       // }
 
       if (action.type === "server/setServer") {
-        storage.setItem("server", action.payload);
+        storage.setItem(`${siteTitle}-server`, action.payload);
       }
 
       if (action.type === "server/setServerVariable") {
-        const server = storage.getItem("server") ?? "{}";
+        const server = storage.getItem(`${siteTitle}-server`) ?? "{}";
         const variables = JSON.parse(action.payload);
         let serverObject = JSON.parse(server);
         serverObject.variables[variables.key].default = variables.value;
-        storage.setItem("server", JSON.stringify(serverObject));
+        storage.setItem(`${siteTitle}-server`, JSON.stringify(serverObject));
       }
 
       return result;

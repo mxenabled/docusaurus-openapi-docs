@@ -111,7 +111,7 @@ export default function ApiItem(props: Props): JSX.Element {
     // TODO: determine way to rehydrate without flashing
     // const acceptValue = window?.sessionStorage.getItem("accept");
     // const contentTypeValue = window?.sessionStorage.getItem("contentType");
-    const server = window?.sessionStorage.getItem("server");
+    const server = window?.sessionStorage.getItem(`${siteConfig.title}-server`);
     const serverObject = (JSON.parse(server!) as ServerObject) ?? {};
 
     store2 = createStoreWithState(
