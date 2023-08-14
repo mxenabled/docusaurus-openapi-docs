@@ -280,7 +280,7 @@ export function createStatusCodes({ responses }: Props) {
               }),
               responseHeaders &&
                 createDetails({
-                  "data-collaposed": true,
+                  "data-collapsed": true,
                   open: false,
                   style: { textAlign: "left", marginBottom: "1rem" },
                   children: [
@@ -296,7 +296,7 @@ export function createStatusCodes({ responses }: Props) {
                 }),
               create("div", {
                 children: createResponseSchema({
-                  title: "Schema",
+                  title: "",
                   body: {
                     content: responses[code].content,
                   },
