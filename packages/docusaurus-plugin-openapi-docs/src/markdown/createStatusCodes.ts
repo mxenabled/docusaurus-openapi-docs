@@ -129,10 +129,12 @@ export function createResponseExamples(
                 children: ` ${summary}`,
               }),
             ]),
-            create("ResponseSamples", {
-              responseExample: JSON.stringify(exampleValue.value, null, 2),
-              language: language,
-            }),
+            guard(exampleValue.value, (value) => [
+              create("ResponseSamples", {
+                responseExample: JSON.stringify(value, null, 2),
+                language: language,
+              }),
+            ]),
           ],
         });
       }
@@ -145,10 +147,12 @@ export function createResponseExamples(
               children: ` ${summary}`,
             }),
           ]),
-          create("ResponseSamples", {
-            responseExample: exampleValue.value,
-            language: language,
-          }),
+          guard(exampleValue.value, (value) => [
+            create("ResponseSamples", {
+              responseExample: value,
+              language: language,
+            }),
+          ]),
         ],
       });
     }
@@ -173,10 +177,12 @@ export function createResponseExample(responseExample: any, mimeType: string) {
             children: ` ${summary}`,
           }),
         ]),
-        create("ResponseSamples", {
-          responseExample: JSON.stringify(responseExample, null, 2),
-          language: language,
-        }),
+        guard(responseExample, (value) => [
+          create("ResponseSamples", {
+            responseExample: JSON.stringify(value, null, 2),
+            language: language,
+          }),
+        ]),
       ],
     });
   }
@@ -189,10 +195,12 @@ export function createResponseExample(responseExample: any, mimeType: string) {
           children: ` ${summary}`,
         }),
       ]),
-      create("ResponseSamples", {
-        responseExample: responseExample,
-        language: language,
-      }),
+      guard(responseExample, (value) => [
+        create("ResponseSamples", {
+          responseExample: value,
+          language: language,
+        }),
+      ]),
     ],
   });
 }
@@ -231,10 +239,12 @@ export function createExampleFromSchema(schema: any, mimeType: string) {
         label: `Example (from schema)`,
         value: `Example (from schema)`,
         children: [
-          create("ResponseSamples", {
-            responseExample: xmlExample,
-            language: "xml",
-          }),
+          guard(xmlExample, (value) => [
+            create("ResponseSamples", {
+              responseExample: value,
+              language: "xml",
+            }),
+          ]),
         ],
       });
     }
@@ -244,10 +254,12 @@ export function createExampleFromSchema(schema: any, mimeType: string) {
       label: `Example (from schema)`,
       value: `Example (from schema)`,
       children: [
-        create("ResponseSamples", {
-          responseExample: JSON.stringify(responseExample, null, 2),
-          language: "json",
-        }),
+        guard(responseExample, (value) => [
+          create("ResponseSamples", {
+            responseExample: JSON.stringify(value, null, 2),
+            language: "json",
+          }),
+        ]),
       ],
     });
   }
