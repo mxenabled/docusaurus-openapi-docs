@@ -92,6 +92,7 @@ ApiPageMetadata) {
     `import ApiTabs from "@theme/ApiTabs";\n`,
     `import SchemaTabs from "@theme/SchemaTabs";\n`,
     `import ResponseSamples from "@theme/ResponseSamples";\n`,
+    `import TabItem from "@theme/TabItem";\n`,
     // create("Layout", {
     //   children: [
     description ? `\n\n${description.trim()}\n\n` : "",
