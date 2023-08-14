@@ -43,7 +43,7 @@ export function TBody({ tableData, subfieldLevel = 0, ...props }: TBodyProps) {
           ? `${row.qualifierMessage}\n`
           : "";
 
-        const enumValues = getEnumRows(row);
+        // const enumValues = getEnumRows(row);
         // if (enumValues.length) {
         //   console.log({ enumValues });
         // }
@@ -145,59 +145,59 @@ function Chevron(
   );
 }
 
-function getEnumRows(row: RowType) {
-  if (!row.schema) {
-    return [];
-  }
+// function getEnumRows(row: RowType) {
+//   if (!row.schema) {
+//     return [];
+//   }
 
-  const enumValues = row.schema!.enum;
+//   const enumValues = row.schema!.enum;
 
-  if (!enumValues) {
-    return [];
-  }
+//   if (!enumValues) {
+//     return [];
+//   }
 
-  const enumRows = enumValues.map((value, index) => {
-    return {
-      field: value,
-      type: row.type,
-    };
-  });
-  return enumRows;
-}
+//   const enumRows = enumValues.map((value, index) => {
+//     return {
+//       field: value,
+//       type: row.type,
+//     };
+//   });
+//   return enumRows;
+// }
 
-function getOneOfRows(row: RowType) {
-  if (!row.schema) {
-    return [];
-  }
+// function getOneOfRows(row: RowType) {
+//   if (!row.schema) {
+//     return [];
+//   }
 
-  const oneOfValues = row.schema!.oneOf;
+//   const oneOfValues = row.schema!.oneOf;
 
-  if (!oneOfValues) {
-    return [];
-  }
+//   if (!oneOfValues) {
+//     return [];
+//   }
 
-  const oneOfRows = oneOfValues.map((value, index) => {
-    const types = value.allOf;
-    let subfields: RowType[] = [];
+//   const oneOfRows = oneOfValues.map((value, index) => {
+//     const types = value.allOf;
+//     let subfields: RowType[] = [];
 
-    if (types && types.length > 1) {
-      subfields = types.slice(1).map((subfield) => {
-        // TODO: get row info
-      });
-    }
+//     if (types && types.length > 1) {
+//       subfields = types.slice(1).map((subfield) => {
+//         // TODO: get row info
+//       });
+//     }
 
-    let type = row.type;
+//     let type = row.type;
 
-    if (types && types.length && typeof types[0] === "string") {
-      type = types[0];
-    }
+//     if (types && types.length && typeof types[0] === "string") {
+//       type = types[0];
+//     }
 
-    return {
-      field: value.title,
-      type,
-      description: value?.description,
-      subfields,
-    };
-  });
-  return oneOfRows;
-}
+//     return {
+//       field: value.title,
+//       type,
+//       description: value?.description,
+//       subfields,
+//     };
+//   });
+//   return oneOfRows;
+// }
