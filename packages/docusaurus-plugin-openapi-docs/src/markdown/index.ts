@@ -23,7 +23,7 @@ import { createLogo } from "./createLogo";
 import { createParamsDetails } from "./createParamsDetails";
 // import { createRequestBodyDetails } from "./createRequestBodyDetails";
 import { createRequestSchema } from "./createRequestSchema";
-// import { createStatusCodes } from "./createStatusCodes";
+import { createStatusCodes } from "./createStatusCodes";
 import { createTermsOfService } from "./createTermsOfService";
 // import { createVendorExtensions } from "./createVendorExtensions";
 import { createVersionBadge } from "./createVersionBadge";
@@ -49,7 +49,7 @@ export function createApiPageMD({
     // extensions,
     parameters,
     requestBody,
-    // responses,
+    responses,
     path,
     method,
   },
@@ -88,6 +88,10 @@ ApiPageMetadata) {
     `import RequestBodyDetailsBase from "@theme/RequestBodyDetails/base";\n`,
     `import RequestBodyDetails from "@theme/RequestBodyDetails";\n`,
     `import Table from "@theme/SchemaTable";\n`,
+    `import MimeTabs from "@theme/MimeTabs";\n`,
+    `import ApiTabs from "@theme/ApiTabs";\n`,
+    `import SchemaTabs from "@theme/SchemaTabs";\n`,
+    `import ResponseSamples from "@theme/ResponseSamples";\n`,
     // create("Layout", {
     //   children: [
     description ? `\n\n${description.trim()}\n\n` : "",
@@ -99,6 +103,7 @@ ApiPageMetadata) {
     requestBody
       ? createRequestSchema({ body: requestBody, title: "Request body" })
       : "",
+    createStatusCodes({ responses }),
     //   ],
     // }
     // ),
