@@ -34,6 +34,10 @@ This is a forked version of the [`docusaurus-plugin-openapi-docs` package](https
 - Customize the page layout for API reference docs
 - Creation of custom table component, w/ limited out-of-the-box styling
 
+### TODO
+
+- [ ] Handle `oneOf`/`anyOneOf` schemas for tables
+
 The `docusaurus-plugin-openapi-docs` package extends the Docusaurus CLI with commands for generating MDX using the OpenAPI specification as the source. The resulting MDX is fully compatible with [plugin-content-docs](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs) and can be used to render beautiful reference API docs by setting `docItemComponent` to `@theme/ApiItem`, a custom component included in the `docusaurus-theme-openapi-docs` theme.
 
 Key Features:
