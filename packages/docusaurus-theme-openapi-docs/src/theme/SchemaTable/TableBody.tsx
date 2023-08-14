@@ -36,18 +36,17 @@ export function TBody({ tableData, subfieldLevel = 0, ...props }: TBodyProps) {
     <tbody {...props} className={clsx(styles.tbody, props?.className)}>
       {tableData.map((row, index) => {
         const isSubfieldTableOpen = openRows.includes(index);
-        const hasPossibleValues =
-          row.schema?.oneOf || row.schema?.anyOf || row.schema?.enum;
-        console.log({ hasPossibleValues, row });
+        // const hasPossibleValues =
+        //   row.schema?.oneOf || row.schema?.anyOf || row.schema?.enum;
 
         const qualifierMessage = row?.qualifierMessage
           ? `${row.qualifierMessage}\n`
           : "";
 
         const enumValues = getEnumRows(row);
-        if (enumValues.length) {
-          console.log({ enumValues });
-        }
+        // if (enumValues.length) {
+        //   console.log({ enumValues });
+        // }
         return (
           <Fragment key={row.field}>
             <tr

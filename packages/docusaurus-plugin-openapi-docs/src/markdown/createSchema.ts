@@ -371,7 +371,6 @@ function createAnyOneOfProperty(
     };
   });
 
-  console.log("possibleValues: ", possibleValues);
   return {
     field: name,
     type: schemaName,

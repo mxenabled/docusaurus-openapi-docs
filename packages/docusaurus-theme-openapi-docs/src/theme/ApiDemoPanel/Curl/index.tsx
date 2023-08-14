@@ -143,9 +143,7 @@ function CodeTab({ children, hidden, className, onClick }: any): JSX.Element {
 }
 
 function Curl({ postman, codeSamples, jsonRequestBodyExample }: Props) {
-  console.log({ postman, codeSamples });
   // TODO: match theme for vscode.
-
   const { siteConfig } = useDocusaurusContext();
 
   const contentType = useTypedSelector((state: any) => state.contentType.value);
