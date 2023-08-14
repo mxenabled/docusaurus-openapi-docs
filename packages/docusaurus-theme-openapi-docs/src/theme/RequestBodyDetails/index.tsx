@@ -25,6 +25,7 @@ export default function RequestBodyDetails({
   required,
   data,
 }: RequestBodyDetailsProps) {
+  console.log("data: ", data);
   return (
     <RequestBodyDetailsBase
       title={title}

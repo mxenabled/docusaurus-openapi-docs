@@ -8,6 +8,7 @@
 import React, { useState, useEffect } from "react";
 
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { ApiItem } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
 import codegen from "@paloaltonetworks/postman-code-generators";
 import sdk from "@paloaltonetworks/postman-collection";
 import buildPostmanRequest from "@theme/ApiDemoPanel/buildPostmanRequest";
@@ -126,6 +127,7 @@ export const languageSet: Language[] = [
 export interface Props {
   postman: sdk.Request;
   codeSamples: any; // TODO: Type this...
+  jsonRequestBodyExample?: ApiItem["jsonRequestBodyExample"];
 }
 
 function CodeTab({ children, hidden, className, onClick }: any): JSX.Element {
@@ -140,7 +142,8 @@ function CodeTab({ children, hidden, className, onClick }: any): JSX.Element {
   );
 }
 
-function Curl({ postman, codeSamples }: Props) {
+function Curl({ postman, codeSamples, jsonRequestBodyExample }: Props) {
+  console.log({ postman, codeSamples });
   // TODO: match theme for vscode.
 
   const { siteConfig } = useDocusaurusContext();
@@ -148,7 +151,20 @@ function Curl({ postman, codeSamples }: Props) {
   const contentType = useTypedSelector((state: any) => state.contentType.value);
   const accept = useTypedSelector((state: any) => state.accept.value);
   const server = useTypedSelector((state: any) => state.server.value);
-  const body = useTypedSelector((state: any) => state.body);
+  const body = useTypedSelector((state: any) => {
+    // use jsonRequestBodyExample as a fallback if no body exists
+    if (state.body.type === "empty" && jsonRequestBodyExample) {
+      return {
+        type: "raw",
+        content: {
+          type: "application/json",
+          value: JSON.stringify(jsonRequestBodyExample),
+        },
+      };
+    }
+
+    return state.body;
+  });
   const pathParams = useTypedSelector((state: any) => state.params.path);
   const queryParams = useTypedSelector((state: any) => state.params.query);
   const cookieParams = useTypedSelector((state: any) => state.params.cookie);

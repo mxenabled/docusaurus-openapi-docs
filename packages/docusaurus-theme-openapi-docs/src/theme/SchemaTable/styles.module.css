@@ -85,6 +85,7 @@ table tbody > tr.hasBottomBorder:last-child > td {
   display: flex;
   align-items: center;
   padding-left: 0;
+  margin-top: 0.5rem;
 }
 
 .subfieldButtonIcon {

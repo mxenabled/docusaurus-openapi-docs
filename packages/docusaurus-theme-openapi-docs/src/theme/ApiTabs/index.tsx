@@ -16,9 +16,12 @@ import React, {
 
 import { duplicates } from "@docusaurus/theme-common";
 import useIsBrowser from "@docusaurus/useIsBrowser";
+import type { Props as TabItemProps } from "@theme/TabItem";
 import clsx from "clsx";
 
 import styles from "./styles.module.css"; // A very rough duck type, but good enough to guard against mistakes while
+
+type TabItemElement = React.ReactElement<TabItemProps>;
 
 const {
   useScrollPositionBlocker,
@@ -27,11 +30,26 @@ const {
 
 // allowing customization
 
-function isTabItem(comp) {
+function isTabItem(comp: React.ReactElement) {
   return typeof comp.props.value !== "undefined";
 }
 
-function ApiTabsComponent(props) {
+type ApiTabsProps = {
+  lazy?: boolean;
+  block?: boolean;
+  defaultValue?: string | null;
+  values?: Array<{
+    value: string;
+    label?: string;
+    attributes?: Record<string, unknown>;
+  }>;
+  groupId?: string;
+  className?: string;
+  title?: string;
+  children: React.ReactNode;
+};
+
+function ApiTabsComponent(props: ApiTabsProps) {
   const {
     lazy,
     block,
@@ -39,6 +57,7 @@ function ApiTabsComponent(props) {
     values: valuesProp,
     groupId,
     className,
+    title,
   } = props;
   const children = Children.map(props.children, (child) => {
     if (isValidElement(child) && isTabItem(child)) {
@@ -52,7 +71,14 @@ function ApiTabsComponent(props) {
         typeof child.type === "string" ? child.type : child.type.name
       }>: all children of the <Tabs> component should be <TabItem>, and every <TabItem> should have a unique "value" prop.`
     );
-  });
+  }) as TabItemElement[];
+
+  if (!children || !children.length) {
+    throw new Error(
+      "Docusaurus error: <Tabs> should have at least one <TabItem> child."
+    );
+  }
+
   const values =
     valuesProp ?? // We only pick keys that we recognize. MDX would inject some keys by default
     children.map(({ props: { value, label, attributes } }) => ({
@@ -89,7 +115,7 @@ function ApiTabsComponent(props) {
 
   const { tabGroupChoices, setTabGroupChoices } = useTabGroupChoice();
   const [selectedValue, setSelectedValue] = useState(defaultValue);
-  const tabRefs = [];
+  const tabRefs: Array<HTMLLIElement> = [];
   const { blockElementScrollPositionUntilNextRender } =
     useScrollPositionBlocker();
 
@@ -105,7 +131,9 @@ function ApiTabsComponent(props) {
     }
   }
 
-  const handleTabChange = (event) => {
+  const handleTabChange = (
+    event: React.FocusEvent<HTMLLIElement> | React.MouseEvent<HTMLLIElement>
+  ) => {
     const newTab = event.currentTarget;
     const newTabIndex = tabRefs.indexOf(newTab);
     const newTabValue = values[newTabIndex].value;
@@ -120,7 +148,7 @@ function ApiTabsComponent(props) {
     }
   };
 
-  const handleKeydown = (event) => {
+  const handleKeydown = (event: React.KeyboardEvent<HTMLLIElement>) => {
     let focusElement = null;
 
     switch (event.key) {
@@ -140,16 +168,20 @@ function ApiTabsComponent(props) {
         break;
     }
 
-    focusElement?.focus();
+    if (focusElement) {
+      focusElement.focus();
+    }
   };
 
-  const tabItemListContainerRef = useRef(null);
+  const tabItemListContainerRef = useRef<HTMLUListElement>(null);
   const [showTabArrows, setShowTabArrows] = useState(false);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
-        if (entry.target.offsetWidth < entry.target.scrollWidth) {
+        const targetElement = entry.target as HTMLElement;
+
+        if (targetElement.offsetWidth < targetElement.scrollWidth) {
           setShowTabArrows(true);
         } else {
           setShowTabArrows(false);
@@ -157,7 +189,9 @@ function ApiTabsComponent(props) {
       }
     });
 
-    resizeObserver.observe(tabItemListContainerRef.current);
+    if (tabItemListContainerRef.current) {
+      resizeObserver.observe(tabItemListContainerRef.current);
+    }
 
     return () => {
       resizeObserver.disconnect();
@@ -165,17 +199,21 @@ function ApiTabsComponent(props) {
   }, []);
 
   const handleRightClick = () => {
-    tabItemListContainerRef.current.scrollLeft += 90;
+    if (tabItemListContainerRef.current) {
+      tabItemListContainerRef.current.scrollLeft += 90;
+    }
   };
 
   const handleLeftClick = () => {
-    tabItemListContainerRef.current.scrollLeft -= 90;
+    if (tabItemListContainerRef.current) {
+      tabItemListContainerRef.current.scrollLeft -= 90;
+    }
   };
 
   return (
     <div className="tabs__container">
       <div className={styles.responseTabsTopSection}>
-        <strong>Responses</strong>
+        <h3>{title ?? "Response"}</h3>
         <div className={styles.responseTabsContainer}>
           {showTabArrows && (
             <button
@@ -210,7 +248,11 @@ function ApiTabsComponent(props) {
                   tabIndex={selectedValue === value ? 0 : -1}
                   aria-selected={selectedValue === value}
                   key={value}
-                  ref={(tabControl) => tabRefs.push(tabControl)}
+                  ref={(tabControl) => {
+                    if (tabControl) {
+                      tabRefs.push(tabControl);
+                    }
+                  }}
                   onKeyDown={handleKeydown}
                   onFocus={handleTabChange}
                   onClick={handleTabChange}
@@ -218,7 +260,7 @@ function ApiTabsComponent(props) {
                   className={clsx(
                     "tabs__item",
                     styles.tabItem,
-                    attributes?.className,
+                    attributes?.className ?? "",
                     responseStatusStyle,
                     {
                       [styles.active]: selectedValue === value,
@@ -265,7 +307,7 @@ function ApiTabsComponent(props) {
   );
 }
 
-export default function ApiTabs(props) {
+export default function ApiTabs(props: ApiTabsProps) {
   const isBrowser = useIsBrowser();
   return (
     <ApiTabsComponent // Remount tabs after hydration

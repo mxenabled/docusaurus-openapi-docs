@@ -8,6 +8,7 @@
 import React, { Fragment, useState } from "react";
 
 import clsx from "clsx";
+import ReactMarkdown from "react-markdown";
 
 import type { RowType } from "./";
 import styles from "./styles.module.css";
@@ -35,7 +36,18 @@ export function TBody({ tableData, subfieldLevel = 0, ...props }: TBodyProps) {
     <tbody {...props} className={clsx(styles.tbody, props?.className)}>
       {tableData.map((row, index) => {
         const isSubfieldTableOpen = openRows.includes(index);
+        const hasPossibleValues =
+          row.schema?.oneOf || row.schema?.anyOf || row.schema?.enum;
+        console.log({ hasPossibleValues, row });
 
+        const qualifierMessage = row?.qualifierMessage
+          ? `${row.qualifierMessage}\n`
+          : "";
+
+        const enumValues = getEnumRows(row);
+        if (enumValues.length) {
+          console.log({ enumValues });
+        }
         return (
           <Fragment key={row.field}>
             <tr
@@ -61,7 +73,9 @@ export function TBody({ tableData, subfieldLevel = 0, ...props }: TBodyProps) {
               >
                 <span className="font-semibold">{row.field}</span>
                 {row.description ? (
-                  <p className="mt-1 text-xs">{row.description}</p>
+                  <ReactMarkdown className="mt-1 text-xs">
+                    {`${qualifierMessage}${row.description}`}
+                  </ReactMarkdown>
                 ) : null}
 
                 {row.subfields ? (
@@ -130,4 +144,61 @@ function Chevron(
       ></path>
     </svg>
   );
+}
+
+function getEnumRows(row: RowType) {
+  if (!row.schema) {
+    return [];
+  }
+
+  const enumValues = row.schema!.enum;
+
+  if (!enumValues) {
+    return [];
+  }
+
+  const enumRows = enumValues.map((value, index) => {
+    return {
+      field: value,
+      type: row.type,
+    };
+  });
+  return enumRows;
+}
+
+function getOneOfRows(row: RowType) {
+  if (!row.schema) {
+    return [];
+  }
+
+  const oneOfValues = row.schema!.oneOf;
+
+  if (!oneOfValues) {
+    return [];
+  }
+
+  const oneOfRows = oneOfValues.map((value, index) => {
+    const types = value.allOf;
+    let subfields: RowType[] = [];
+
+    if (types && types.length > 1) {
+      subfields = types.slice(1).map((subfield) => {
+        // TODO: get row info
+      });
+    }
+
+    let type = row.type;
+
+    if (types && types.length && typeof types[0] === "string") {
+      type = types[0];
+    }
+
+    return {
+      field: value.title,
+      type,
+      description: value?.description,
+      subfields,
+    };
+  });
+  return oneOfRows;
 }

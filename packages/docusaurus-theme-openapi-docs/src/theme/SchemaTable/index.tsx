@@ -7,6 +7,7 @@
 
 import React from "react";
 
+import { SchemaObject } from "../../types";
 import styles from "./styles.module.css";
 import { TBody } from "./TableBody";
 
@@ -16,6 +17,8 @@ export type RowType = {
   required: boolean;
   type: string;
   subfields?: RowType[];
+  schema?: SchemaObject;
+  qualifierMessage?: string;
 };
 
 const initialData: RowType[] = [
