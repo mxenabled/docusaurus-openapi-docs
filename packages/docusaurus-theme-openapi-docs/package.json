@@ -1,7 +1,7 @@
 {
   "name": "@mxenabled/docusaurus-theme-openapi-docs",
   "description": "OpenAPI theme for Docusaurus.",
-  "version": "1.8.3",
+  "version": "1.8.4",
   "license": "MIT",
   "keywords": [
     "openapi",
