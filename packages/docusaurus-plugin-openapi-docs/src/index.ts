@@ -283,6 +283,8 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
             : tagPageGenerator(item);
         item.markdown = markdown;
         if (item.type === "api") {
+          // item.json = JSON.stringify(item.api);
+
           // opportunity to compress JSON
           // const serialize = (o: any) => {
           //   return zlib.deflateSync(JSON.stringify(o)).toString("base64");
