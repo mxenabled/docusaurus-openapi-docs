@@ -47,6 +47,12 @@ Key Features:
 - **Stylish:** Based on the same [Infima styling framework](https://infima.dev/) that powers the Docusaurus UI.
 - **Capable:** Supports single, multi and _even micro_ OpenAPI specs.
 
+## Publishing a new version
+
+1. Make your code changes
+2. Run `yarn build-packages`
+3. Run `npx lerna publish`
+
 ## Installation
 
 Plugin:
