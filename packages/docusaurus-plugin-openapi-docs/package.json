@@ -1,6 +1,6 @@
 {
   "name": "@mxenabled/docusaurus-plugin-openapi-docs",
-  "description": "OpenAPI plugin for Docusaurus.",
+  "description": "MX's OpenAPI plugin for Docusaurus.",
   "version": "1.10.1",
   "license": "MIT",
   "keywords": [
