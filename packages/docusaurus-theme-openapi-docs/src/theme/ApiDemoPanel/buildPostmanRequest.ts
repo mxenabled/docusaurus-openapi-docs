@@ -283,6 +283,10 @@ function buildPostmanRequest(
     if (a.type === "http" && a.scheme === "basic") {
       const { username, password } = auth.data[a.key];
       if (username === undefined || password === undefined) {
+        otherHeaders.push({
+          key: "Authorization",
+          value: "Basic BASE_64_ENCODING_OF{client_id:api_key}",
+        });
         continue;
       }
       otherHeaders.push({
@@ -320,7 +324,6 @@ function buildPostmanRequest(
   );
 
   setBody(clonedPostman, body);
-
   return clonedPostman;
 }
 
