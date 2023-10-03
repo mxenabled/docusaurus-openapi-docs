@@ -2754,10 +2754,10 @@
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.22.tgz#219dfd89ae5b97a8801f015323ffa4b62f45718b"
   integrity sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==
 
-"@mxenabled/docusaurus-theme-common@^2.2.3":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@mxenabled/docusaurus-theme-common/-/docusaurus-theme-common-2.2.3.tgz#c05c737d812d3550fbe19b8ce5da71333f7d18f8"
-  integrity sha512-WNTujOSGV7LMPqFREu7BxdTFg412Sqy45WZ6/0jlu3iGM+P4Li+bZLV79cjA3x7Ddd6UDUjf0TgTH6wRQz18jw==
+"@mxenabled/docusaurus-theme-common@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@mxenabled/docusaurus-theme-common/-/docusaurus-theme-common-2.2.4.tgz#df474defa4ea4eaf8b03b377a1fde5ac3ba3783a"
+  integrity sha512-Ns4z5H2c4WbonNOl3LWwu/eCuAXYcKDip0Y2BJmmw7oiqJldDv2yEtffr5ZMcvNVHMe3r/VntqxJ7oM6XOxB7A==
   dependencies:
     "@docusaurus/mdx-loader" "2.2.0"
     "@docusaurus/module-type-aliases" "2.2.0"
