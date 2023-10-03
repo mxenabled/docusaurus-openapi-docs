@@ -242,7 +242,7 @@ custom_edit_url: null
 {{{markdown}}}
 
 import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+import {useCurrentSidebarCategory} from '@mxenabled/docusaurus-theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
       `;
@@ -257,7 +257,7 @@ custom_edit_url: null
 {{{markdown}}}
 
 import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+import {useCurrentSidebarCategory} from '@mxenabled/docusaurus-theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
       `;

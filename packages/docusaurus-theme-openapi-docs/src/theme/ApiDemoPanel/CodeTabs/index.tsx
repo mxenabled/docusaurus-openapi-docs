@@ -12,8 +12,8 @@ import React, {
   type ReactElement,
 } from "react";
 
-import { duplicates } from "@docusaurus/theme-common";
 import useIsBrowser from "@docusaurus/useIsBrowser";
+import { duplicates } from "@mxenabled/docusaurus-theme-common";
 import { languageSet } from "@theme/ApiDemoPanel/Curl";
 import { Language } from "@theme/ApiDemoPanel/Curl";
 import type { Props as TabItemProps } from "@theme/TabItem";
@@ -24,7 +24,7 @@ import styles from "./styles.module.css";
 const {
   useScrollPositionBlocker,
   useTabGroupChoice,
-} = require("@docusaurus/theme-common/internal");
+} = require("@mxenabled/docusaurus-theme-common/internal");
 
 // A very rough duck type, but good enough to guard against mistakes while
 // allowing customization

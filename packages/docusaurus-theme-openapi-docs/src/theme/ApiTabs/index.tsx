@@ -14,8 +14,8 @@ import React, {
   useState,
 } from "react";
 
-import { duplicates } from "@docusaurus/theme-common";
 import useIsBrowser from "@docusaurus/useIsBrowser";
+import { duplicates } from "@mxenabled/docusaurus-theme-common";
 import type { Props as TabItemProps } from "@theme/TabItem";
 import clsx from "clsx";
 
@@ -26,7 +26,7 @@ type TabItemElement = React.ReactElement<TabItemProps>;
 const {
   useScrollPositionBlocker,
   useTabGroupChoice,
-} = require("@docusaurus/theme-common/internal");
+} = require("@mxenabled/docusaurus-theme-common/internal");
 
 // allowing customization
 

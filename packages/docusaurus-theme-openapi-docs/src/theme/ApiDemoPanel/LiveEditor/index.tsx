@@ -7,8 +7,8 @@
 
 import React, { useEffect, useState } from "react";
 
-import { usePrismTheme } from "@docusaurus/theme-common";
 import useIsBrowser from "@docusaurus/useIsBrowser";
+import { usePrismTheme } from "@mxenabled/docusaurus-theme-common";
 import { setStringRawBody } from "@theme/ApiDemoPanel/Body/slice";
 import { LiveProvider, LiveEditor, withLive } from "react-live";
 

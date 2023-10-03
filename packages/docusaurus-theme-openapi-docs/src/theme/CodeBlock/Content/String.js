@@ -7,14 +7,17 @@
 
 import React from "react";
 
-import { useThemeConfig, usePrismTheme } from "@docusaurus/theme-common";
+import {
+  useThemeConfig,
+  usePrismTheme,
+} from "@mxenabled/docusaurus-theme-common";
 import {
   parseCodeBlockTitle,
   parseLanguage,
   parseLines,
   containsLineNumbers,
   useCodeWordWrap,
-} from "@docusaurus/theme-common/internal";
+} from "@mxenabled/docusaurus-theme-common/internal";
 import Container from "@theme/CodeBlock/Container";
 import Line from "@theme/CodeBlock/Line";
 // import CopyButton from "@theme/CodeBlock/CopyButton";

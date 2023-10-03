@@ -14,8 +14,8 @@ import React, {
   useState,
 } from "react";
 
-import { duplicates } from "@docusaurus/theme-common";
 import useIsBrowser from "@docusaurus/useIsBrowser";
+import { duplicates } from "@mxenabled/docusaurus-theme-common";
 import { setAccept } from "@theme/ApiDemoPanel/Accept/slice";
 import { setContentType } from "@theme/ApiDemoPanel/ContentType/slice";
 import { useTypedDispatch, useTypedSelector } from "@theme/ApiItem/hooks";
@@ -26,7 +26,7 @@ import styles from "./styles.module.css";
 const {
   useScrollPositionBlocker,
   useTabGroupChoice,
-} = require("@docusaurus/theme-common/internal");
+} = require("@mxenabled/docusaurus-theme-common/internal");
 
 function isTabItem(comp) {
   return typeof comp.props.value !== "undefined";

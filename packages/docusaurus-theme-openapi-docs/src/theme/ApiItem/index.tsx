@@ -11,12 +11,12 @@ import React from "react";
 
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
-import { HtmlClassNameProvider } from "@docusaurus/theme-common";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useIsBrowser from "@docusaurus/useIsBrowser";
 import { ServerObject } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
 import { ParameterObject } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
 import type { ApiItem as ApiItemType } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
+import { HtmlClassNameProvider } from "@mxenabled/docusaurus-theme-common";
 import type {
   DocFrontMatter,
   ThemeConfig,
@@ -32,7 +32,7 @@ import { Provider } from "react-redux";
 
 import { createStoreWithoutState, createStoreWithState } from "./store";
 
-const { DocProvider } = require("@docusaurus/theme-common/internal");
+const { DocProvider } = require("@mxenabled/docusaurus-theme-common/internal");
 
 let ApiDemoPanel = (_: { item: any; infoPath: any }) => <div />;
 

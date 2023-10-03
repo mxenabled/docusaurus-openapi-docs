@@ -14,8 +14,8 @@ import React, {
   useState,
 } from "react";
 
-import { duplicates } from "@docusaurus/theme-common";
 import useIsBrowser from "@docusaurus/useIsBrowser";
+import { duplicates } from "@mxenabled/docusaurus-theme-common";
 import clsx from "clsx";
 
 import styles from "./styles.module.css"; // A very rough duck type, but good enough to guard against mistakes while
@@ -23,7 +23,7 @@ import styles from "./styles.module.css"; // A very rough duck type, but good en
 const {
   useScrollPositionBlocker,
   useTabGroupChoice,
-} = require("@docusaurus/theme-common/internal");
+} = require("@mxenabled/docusaurus-theme-commonn/internal");
 
 // allowing customization
 

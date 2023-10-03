@@ -7,9 +7,9 @@
 
 import React from "react";
 
-import { useDoc } from "@docusaurus/theme-common/internal";
 import { ParameterObject } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
 import { ApiItem } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
+import { useDoc } from "@mxenabled/docusaurus-theme-common/internal";
 import sdk from "@paloaltonetworks/postman-collection";
 import Accept from "@theme/ApiDemoPanel/Accept";
 import Authorization from "@theme/ApiDemoPanel/Authorization";
