@@ -15,7 +15,11 @@ import chalk from "chalk";
 import { render } from "mustache";
 
 import { createApiPageMD, createInfoPageMD, createTagPageMD } from "./markdown";
-import { readOpenapiFiles, processOpenapiFiles } from "./openapi";
+import {
+  readOpenapiFiles,
+  processOpenapiFiles,
+  sampleResponseFromSchema,
+} from "./openapi";
 import { OptionsSchema } from "./options";
 import generateSidebarSlice from "./sidebars";
 import type { PluginOptions, LoadedContent, APIOptions } from "./types";
@@ -210,6 +214,9 @@ hide_table_of_contents: true
 api: {{{json}}}
 {{/json}}
 {{#api.method}}
+{{#sampleResponses}}
+sample_responses: {{{sampleResponses}}}
+{{/sampleResponses}}
 sidebar_class_name: "{{{api.method}}} api-method"
 {{/api.method}}
 {{#infoPath}}
@@ -242,7 +249,7 @@ custom_edit_url: null
 {{{markdown}}}
 
 import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@mxenabled/docusaurus-theme-common';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
       `;
@@ -257,7 +264,7 @@ custom_edit_url: null
 {{{markdown}}}
 
 import DocCardList from '@theme/DocCardList';
-import {useCurrentSidebarCategory} from '@mxenabled/docusaurus-theme-common';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
 <DocCardList items={useCurrentSidebarCategory().items}/>
       `;
@@ -282,8 +289,46 @@ import {useCurrentSidebarCategory} from '@mxenabled/docusaurus-theme-common';
             ? infoPageGenerator(item)
             : tagPageGenerator(item);
         item.markdown = markdown;
+
         if (item.type === "api") {
-          // item.json = JSON.stringify(item.api);
+          if (item.type === "api") {
+            // get sample responses
+            const { responses } = item.api;
+            const statusCodes = Object.keys(responses);
+
+            const responseExamples = Object.entries(responses).reduce(
+              (acc, [status, value]) => {
+                const { content } = value;
+
+                for (const mimeType in content) {
+                  // TODO: handle other mime types if needed
+                  if (
+                    mimeType.endsWith("json") &&
+                    content.hasOwnProperty(mimeType)
+                  ) {
+                    const bodyContent =
+                      content[mimeType].schema ?? content[mimeType];
+
+                    const example = sampleResponseFromSchema(bodyContent);
+                    acc[status] = example;
+                  }
+                }
+
+                return acc;
+              },
+              {} as { [key: string]: any }
+            );
+
+            if (statusCodes.length) {
+              // opportunity to compress JSON
+              item.sampleResponses = {
+                statusCodes,
+                responseExamples: zlib
+                  .deflateSync(JSON.stringify(responseExamples))
+                  .toString("base64"),
+              };
+            }
+          }
 
           // opportunity to compress JSON
           // const serialize = (o: any) => {
