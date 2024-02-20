@@ -16,10 +16,12 @@ import {
 
 export type {
   PropSidebarItemCategory,
-  SidebarItemLink,
+  // SidebarItemLink,
   PropSidebar,
   PropSidebarItem,
-} from "@docusaurus/plugin-content-docs-types";
+} from "@docusaurus/plugin-content-docs";
+
+export type { SchemaObject } from "./openapi/types";
 export interface PluginOptions {
   id?: string;
   docsPluginId: string;
@@ -99,6 +101,10 @@ export interface ApiPageMetadata extends ApiMetadataBase {
   type: "api";
   api: ApiItem;
   markdown?: string;
+  sampleResponses?: null | {
+    statusCodes: string[];
+    responseExamples: string; // compressed JSON
+  };
 }
 
 export interface ApiItem extends OperationObject {
