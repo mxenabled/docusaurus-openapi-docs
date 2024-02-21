@@ -321,12 +321,14 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 
             if (statusCodes.length) {
               // opportunity to compress JSON
-              item.sampleResponses = {
+              const sampleResponses = {
                 statusCodes,
-                responseExamples: zlib
-                  .deflateSync(JSON.stringify(responseExamples))
-                  .toString("base64"),
+                responseExamples,
               };
+
+              item.sampleResponses = zlib
+                .deflateSync(JSON.stringify(sampleResponses))
+                .toString("base64");
             }
           }
 
