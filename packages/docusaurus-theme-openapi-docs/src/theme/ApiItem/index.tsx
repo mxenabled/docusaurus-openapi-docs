@@ -11,51 +11,75 @@ import React from "react";
 
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import { HtmlClassNameProvider } from "@docusaurus/theme-common";
+import { DocProvider } from "@docusaurus/theme-common/internal";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useIsBrowser from "@docusaurus/useIsBrowser";
-import { ServerObject } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
-import { ParameterObject } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
-import type { ApiItem as ApiItemType } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
-import { HtmlClassNameProvider } from "@mxenabled/docusaurus-theme-common";
-import type {
-  DocFrontMatter,
-  ThemeConfig,
-} from "@mxenabled/docusaurus-theme-openapi-docs/src/types";
-import { createAuth } from "@theme/ApiDemoPanel/Authorization/slice";
-import { createPersistanceMiddleware } from "@theme/ApiDemoPanel/persistanceMiddleware";
+import { createAuth } from "@theme/ApiExplorer/Authorization/slice";
+import { createPersistanceMiddleware } from "@theme/ApiExplorer/persistanceMiddleware";
 import DocItemLayout from "@theme/ApiItem/Layout";
 import type { Props } from "@theme/DocItem";
 import DocItemMetadata from "@theme/DocItem/Metadata";
 import clsx from "clsx";
-/* eslint-disable import/no-extraneous-dependencies*/
+import {
+  ServerObject,
+  ParameterObject,
+} from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
+import type { ApiItem as ApiItemType } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
+import type {
+  DocFrontMatter,
+  ThemeConfig,
+} from "@mxenabled/docusaurus-theme-openapi-docs/src/types";
 import { Provider } from "react-redux";
 
 import { createStoreWithoutState, createStoreWithState } from "./store";
 
-const { DocProvider } = require("@mxenabled/docusaurus-theme-common/internal");
-
-let ApiDemoPanel = (_: { item: any; infoPath: any }) => <div />;
+let ApiExplorer = (_: { item: any; infoPath: any; sampleResponses: any }) => (
+  <div />
+);
 
 if (ExecutionEnvironment.canUseDOM) {
-  ApiDemoPanel = require("@theme/ApiDemoPanel").default;
+  ApiExplorer = require("@theme/ApiExplorer").default;
+}
+
+interface DocFM extends DocFrontMatter {
+  readonly api_reference?: boolean;
+}
+
+export interface SampleResponses {
+  statusCodes: string[];
+  responseExamples: { [key: string]: any };
 }
 
 interface ApiFrontMatter extends DocFrontMatter {
   readonly api?: ApiItemType;
+  readonly sample_responses?: SampleResponses;
 }
 
-export default function ApiItem(props: Props): JSX.Element {
-  const docHtmlClassName = `docs-doc-id-${props.content.metadata.unversionedId}`;
-  const MDXComponent = props.content;
-  const { frontMatter, metadata } = MDXComponent;
-  const { title } = metadata;
-  const { info_path: infoPath } = frontMatter as DocFrontMatter;
-  let { api } = frontMatter as ApiFrontMatter;
+type MdxComponent = Omit<Props["content"], "frontMatter"> & {
+  frontMatter: DocFM;
+};
 
+// @ts-ignore
+export default function ApiItem(props: Props): React.JSX.Element {
+  const docHtmlClassName = `docs-doc-id-${props.content.metadata.id}`;
+  const MDXComponent = props.content;
+  const { frontMatter, metadata } = MDXComponent as MdxComponent;
+  const { title } = metadata;
+  const { info_path: infoPath } = frontMatter as DocFM;
+  let { api, sample_responses: sampleResponses } =
+    frontMatter as ApiFrontMatter;
   // decompress and parse
   if (api) {
     api = JSON.parse(
       zlib.inflateSync(Buffer.from(api as any, "base64")).toString()
+    );
+  }
+
+  // decompress and parse
+  if (sampleResponses) {
+    sampleResponses = JSON.parse(
+      zlib.inflateSync(Buffer.from(sampleResponses as any, "base64")).toString()
     );
   }
 
@@ -111,7 +135,7 @@ export default function ApiItem(props: Props): JSX.Element {
     // TODO: determine way to rehydrate without flashing
     // const acceptValue = window?.sessionStorage.getItem("accept");
     // const contentTypeValue = window?.sessionStorage.getItem("contentType");
-    const server = window?.sessionStorage.getItem(`${siteConfig.title}-server`);
+    const server = window?.sessionStorage.getItem("server");
     const serverObject = (JSON.parse(server!) as ServerObject) ?? {};
 
     store2 = createStoreWithState(
@@ -144,15 +168,22 @@ export default function ApiItem(props: Props): JSX.Element {
           <DocItemMetadata />
           <DocItemLayout>
             <Provider store={store2}>
-              <h1 className="text-2xl mx-0 !mb-12">{title}</h1>
+              <h1>{title}</h1>
+
               <div className={clsx("row", "theme-api-markdown")}>
-                <div className="col col--7">
+                <div className="col col--7 openapi-left-panel__container">
                   <MDXComponent />
                 </div>
-                <div className="col col--5">
+                <div className="col col--5 openapi-right-panel__container">
                   <BrowserOnly fallback={<div>Loading...</div>}>
                     {() => {
-                      return <ApiDemoPanel item={api} infoPath={infoPath} />;
+                      return (
+                        <ApiExplorer
+                          item={api}
+                          sampleResponses={sampleResponses}
+                          infoPath={infoPath}
+                        />
+                      );
                     }}
                   </BrowserOnly>
                 </div>

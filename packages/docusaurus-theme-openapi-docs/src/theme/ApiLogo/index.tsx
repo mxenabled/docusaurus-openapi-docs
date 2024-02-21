@@ -7,11 +7,11 @@
 
 import React from "react";
 
+import { useColorMode } from "@docusaurus/theme-common";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import { useColorMode } from "@mxenabled/docusaurus-theme-common";
 import ThemedImage from "@theme/ThemedImage";
 
-export default function ApiLogo(props: any): JSX.Element | undefined {
+export default function ApiLogo(props: any): React.JSX.Element | undefined {
   const { colorMode } = useColorMode();
   const { logo, darkLogo } = props;
   const altText = () => {

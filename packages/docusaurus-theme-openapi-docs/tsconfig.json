@@ -1,10 +1,16 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["DOM", "ES2019"],
-    "module": "esnext",
-    "noEmit": true,
-    "jsx": "react"
+    "lib": ["ESNext", "DOM"],
+    "rootDir": "src",
+    "module": "CommonJS",
+    "target": "ESNext",
+    "noEmit": false,
+    "outDir": "lib",
+    "jsx": "react",
+    "paths": {
+      "@theme/*": ["./src/theme/*"]
+    }
   },
   "include": ["src"]
 }

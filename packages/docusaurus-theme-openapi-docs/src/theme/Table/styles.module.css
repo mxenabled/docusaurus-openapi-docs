@@ -1,8 +1,0 @@
-.parentTable {
-  margin-bottom: 1.5rem;
-}
-
-.parentTable > tbody > tr:last-child {
-  border-bottom: var(--ifm-table-border-width) solid
-    var(--ifm-table-border-color);
-}

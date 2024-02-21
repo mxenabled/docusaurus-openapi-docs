@@ -1,5 +1,0 @@
-src/**/*
-!src/**/*.d.ts
-README.md
-tsconfig.json
-babel.config.js
