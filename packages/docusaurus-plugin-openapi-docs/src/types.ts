@@ -101,10 +101,7 @@ export interface ApiPageMetadata extends ApiMetadataBase {
   type: "api";
   api: ApiItem;
   markdown?: string;
-  sampleResponses?: null | {
-    statusCodes: string[];
-    responseExamples: string; // compressed JSON
-  };
+  sampleResponses?: string; // compressed JSON
 }
 
 export interface ApiItem extends OperationObject {
@@ -118,6 +115,7 @@ export interface ApiItem extends OperationObject {
   proxy?: string;
   info: InfoObject;
   extensions?: object;
+  "x-code-samples"?: any[];
 }
 
 export interface InfoPageMetadata extends ApiMetadataBase {

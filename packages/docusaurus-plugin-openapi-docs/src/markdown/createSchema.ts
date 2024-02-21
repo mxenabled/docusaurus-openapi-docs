@@ -6,10 +6,6 @@
  * ========================================================================== */
 
 import { SchemaObject } from "../openapi/types";
-import {
-  createClosingArrayBracket,
-  createOpeningArrayBracket,
-} from "./createArrayBracket";
 import { createDescription } from "./createDescription";
 import { getQualifierMessage, getSchemaName } from "./schema";
 import { create } from "./utils";
@@ -92,13 +88,7 @@ function createAnyOneOf(schema: SchemaObject): any {
               return create("TabItem", {
                 label: label,
                 value: `${index}-item-properties`,
-                children: [
-                  createOpeningArrayBracket(),
-                  anyOneChildren,
-                  createClosingArrayBracket(),
-                ]
-                  .filter(Boolean)
-                  .flat(),
+                children: [anyOneChildren].filter(Boolean).flat(),
               });
             }
             return create("TabItem", {
