@@ -6,13 +6,13 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import pkg from "../lerna.json";
 import { getOutput } from "./utils/get-output";
 import { printBanner, printSpacer } from "./utils/print-utils";
+import pkg from "../lerna.json";
 
 const ORG = "PaloAltoNetworks";
 const REPO = "docusaurus-openapi-docs";
-const BRANCH = "v2.0.0";
+const BRANCH = "v3.0.0";
 
 const COMMIT_FILTERS = [/\(release\) v.*/];
 
