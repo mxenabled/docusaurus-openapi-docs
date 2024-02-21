@@ -129,7 +129,7 @@ export function createInfoPageMD({
     `import ApiLogo from "@theme/ApiLogo";\n`,
     `import SchemaTabs from "@theme/SchemaTabs";\n`,
     `import TabItem from "@theme/TabItem";\n`,
-    `import Export from "@theme/ApiDemoPanel/Export";\n\n`,
+    `import Export from "@theme/ApiExplorer/Export";\n\n`,
 
     createVersionBadge(version),
     createDownload(downloadUrl),
