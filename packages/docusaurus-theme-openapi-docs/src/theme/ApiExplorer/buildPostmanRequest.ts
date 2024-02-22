@@ -5,13 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import sdk from "@paloaltonetworks/postman-collection";
-import { AuthState, Scheme } from "@theme/ApiExplorer/Authorization/slice";
-import { Body, Content } from "@theme/ApiExplorer/Body/slice";
 import {
   ParameterObject,
   ServerObject,
 } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
+import sdk from "@paloaltonetworks/postman-collection";
+import { AuthState, Scheme } from "@theme/ApiExplorer/Authorization/slice";
+import { Body, Content } from "@theme/ApiExplorer/Body/slice";
 import cloneDeep from "lodash/cloneDeep";
 
 type Param = {
@@ -283,6 +283,10 @@ function buildPostmanRequest(
     if (a.type === "http" && a.scheme === "basic") {
       const { username, password } = auth.data[a.key];
       if (username === undefined || password === undefined) {
+        otherHeaders.push({
+          key: "Authorization",
+          value: "Basic BASE_64_ENCODING_OF{client_id:api_key}",
+        });
         continue;
       }
       otherHeaders.push({
