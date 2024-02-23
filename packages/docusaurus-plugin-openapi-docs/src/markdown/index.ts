@@ -133,7 +133,7 @@ export function createInfoPageMD({
 
     createVersionBadge(version),
     createDownload(downloadUrl),
-    `# ${title.replace(lessThan, "&lt;").replace(greaterThan, "&gt;")}\n\n`,
+    `# ${title.replace(lessThan, "<").replace(greaterThan, ">")}\n\n`,
     createLogo(logo, darkLogo),
     createDescription(description),
     createAuthentication(securitySchemes as unknown as SecuritySchemeObject),
