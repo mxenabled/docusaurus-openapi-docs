@@ -282,19 +282,38 @@ function buildPostmanRequest(
     // Basic Auth
     if (a.type === "http" && a.scheme === "basic") {
       const { username, password } = auth.data[a.key];
+
       if (username === undefined || password === undefined) {
-        otherHeaders.push({
-          key: "Authorization",
-          value: "Basic BASE_64_ENCODING_OF <client_id:api_key>",
-        });
+        // Dynamic scheme-based header fallback
+        switch (a.key) {
+          case "MD-SESSION-TOKEN":
+            otherHeaders.push({
+              key: "MD-SESSION-TOKEN",
+              value: "<SESSION_TOKEN_VALUE>",
+            });
+            break;
+          case "MD-API-TOKEN":
+            otherHeaders.push({
+              key: "MD-API-TOKEN",
+              value: "<API_KEY_VALUE>",
+            });
+            break;
+          default:
+            otherHeaders.push({
+              key: "Authorization",
+              value: "Basic BASE_64_ENCODING_OF{client_id:api_key}",
+            });
+        }
         continue;
       }
+
       otherHeaders.push({
         key: "Authorization",
         value: `Basic ${window.btoa(`${username}:${password}`)}`,
       });
       continue;
     }
+
 
     // API Key
     if (a.type === "apiKey" && a.in === "header") {
