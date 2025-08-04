@@ -280,7 +280,6 @@ function buildPostmanRequest(
     }
 
     // Basic Auth
-    // Basic Auth
     if (a.type === "http" && a.scheme === "basic") {
       const { username, password } = auth.data[a.key];
       if (username === undefined || password === undefined) {
