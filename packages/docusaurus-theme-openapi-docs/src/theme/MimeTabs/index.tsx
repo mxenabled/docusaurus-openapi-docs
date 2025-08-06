@@ -54,7 +54,6 @@ function TabList({
   const acceptTypeVal = useTypedSelector(
     (state: RootState) => state.accept.value
   );
-
   useEffect(() => {
     if (tabRefs.length > 1) {
       if (isRequestSchema) {
