@@ -18,7 +18,11 @@ import kebabCase from "lodash/kebabCase";
 import unionBy from "lodash/unionBy";
 import uniq from "lodash/uniq";
 
+import { sampleRequestFromSchema } from "./createRequestExample";
+import { OpenApiObject, TagObject } from "./types";
+import { loadAndResolveSpec } from "./utils/loadAndResolveSpec";
 import { isURL } from "../index";
+import { createDescription } from "../markdown/createDescription";
 import {
   ApiMetadata,
   APIOptions,
@@ -27,9 +31,6 @@ import {
   SidebarOptions,
   TagPageMetadata,
 } from "../types";
-import { sampleRequestFromSchema } from "./createRequestExample";
-import { OpenApiObject, TagObject } from "./types";
-import { loadAndResolveSpec } from "./utils/loadAndResolveSpec";
 
 /**
  * Convenience function for converting raw JSON to a Postman Collection object.
@@ -110,9 +111,7 @@ function createItems(
         : "",
       frontMatter: {
         description: splitDescription
-          ? splitDescription[0]
-              .replace(/((?:^|[^\\])(?:\\{2})*)"/g, "$1'")
-              .replace(/\s+$/, "")
+          ? createDescription(splitDescription[0].replace(/\s+$/, ""))
           : "",
       },
       securitySchemes: openapiData.components?.securitySchemes,
@@ -225,9 +224,7 @@ function createItems(
           : "",
         frontMatter: {
           description: splitDescription
-            ? splitDescription[0]
-                .replace(/((?:^|[^\\])(?:\\{2})*)"/g, "$1'")
-                .replace(/\s+$/, "")
+            ? createDescription(splitDescription[0].replace(/\s+$/, ""))
             : "",
           ...(options?.proxy && { proxy: options.proxy }),
           ...(options?.hideSendButton && {
@@ -358,9 +355,7 @@ function createItems(
           : "",
         frontMatter: {
           description: splitDescription
-            ? splitDescription[0]
-                .replace(/((?:^|[^\\])(?:\\{2})*)"/g, "$1'")
-                .replace(/\s+$/, "")
+            ? createDescription(splitDescription[0].replace(/\s+$/, ""))
             : "",
           ...(options?.proxy && { proxy: options.proxy }),
           ...(options?.hideSendButton && {
@@ -420,9 +415,7 @@ function createItems(
           description: description ?? "",
           frontMatter: {
             description: splitDescription
-              ? splitDescription[0]
-                  .replace(/((?:^|[^\\])(?:\\{2})*)"/g, "$1'")
-                  .replace(/\s+$/, "")
+              ? createDescription(splitDescription[0].replace(/\s+$/, ""))
               : "",
           },
           tag: {

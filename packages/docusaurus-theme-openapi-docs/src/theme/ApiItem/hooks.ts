@@ -21,20 +21,28 @@ const defaultState: RootState = {
 } as RootState;
 
 export const useTypedDispatch = (): any => {
-  const dispatch = useDispatch<AppDispatch>();
+  // Create a reference that we can update
+  let dispatch: any;
 
-  if (!ExecutionEnvironment.canUseDOM) {
-    return () => {}; // Return a no-op function during SSR
+  if (ExecutionEnvironment.canUseDOM) {
+    // Only call useDispatch when we're in the browser
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    dispatch = useDispatch<AppDispatch>();
+  } else {
+    // Return a no-op function during SSR
+    dispatch = () => {};
   }
+
   return dispatch;
 };
-
 export const useTypedSelector: TypedUseSelectorHook<RootState> = (selector) => {
+  if (!ExecutionEnvironment.canUseDOM) {
+    // Return default values during SSR to prevent null store access
+    return selector(defaultState);
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const result = useSelector((state: RootState) => {
-    if (!ExecutionEnvironment.canUseDOM) {
-      // Return default values during SSR to prevent null store access
-      return selector(defaultState);
-    }
     return selector(state);
   });
 
