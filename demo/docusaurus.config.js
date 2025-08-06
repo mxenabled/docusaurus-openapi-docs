@@ -267,12 +267,25 @@ const config = {
 };
 
 async function createConfig() {
-  const lightTheme = (await import("./src/utils/prismLight.mjs")).default;
-  const darkTheme = (await import("./src/utils/prismDark.mjs")).default;
-  // @ts-expect-error: we know it exists, right
-  config.themeConfig.prism.theme = lightTheme;
-  // @ts-expect-error: we know it exists, right
-  config.themeConfig.prism.darkTheme = darkTheme;
+  try {
+    const lightTheme = (await import("./src/utils/prismLight.mjs")).default;
+    const darkTheme = (await import("./src/utils/prismDark.mjs")).default;
+    // @ts-expect-error: we know it exists, right
+    config.themeConfig.prism.theme = lightTheme;
+    // @ts-expect-error: we know it exists, right
+    config.themeConfig.prism.darkTheme = darkTheme;
+  } catch (error) {
+    console.warn(
+      "Failed to load custom prism themes, using defaults:",
+      error.message
+    );
+    // Fallback to default themes from prism-react-renderer
+    const { themes } = await import("prism-react-renderer");
+    // @ts-expect-error: we know it exists, right
+    config.themeConfig.prism.theme = themes.github;
+    // @ts-expect-error: we know it exists, right
+    config.themeConfig.prism.darkTheme = themes.vsDark;
+  }
   return config;
 }
 
