@@ -43,7 +43,7 @@ export function render(children: Children): string {
 
 // Regex to selectively URL-encode '>' and '<' chars
 // Match < that is not part of an HTML tag
-export const lessThan = /<(?![a-zA-Z\/])/g;
+export const lessThan = /<(?![a-zA-Z/])/g;
 // Match > that is not part of an HTML tag
-export const greaterThan = /(?<![a-zA-Z\s\/])>/g;
+export const greaterThan = /(?<![a-zA-Z\s/])>/g;
 export const codeFence = /`{1,3}[\s\S]*?`{1,3}/g;
