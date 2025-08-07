@@ -117,7 +117,7 @@ jobs:
 
       - name: Get token
         id: get_token
-        uses: machine-learning-apps/actions-app-token@master
+        uses: machine-learning-apps/actions-app-token@v1
         with:
           APP_PEM: ${{ secrets.APP_PEM }}
           APP_ID: ${{ secrets.APP_ID }}
