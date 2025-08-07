@@ -5,8 +5,25 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const { themes } = require("prism-react-renderer");
-const lightTheme = themes.github;
+// Handle different prism-react-renderer versions and environments
+let lightTheme;
+try {
+  const { themes } = require("prism-react-renderer");
+  lightTheme = themes.github || themes.oneLight;
+} catch (error) {
+  // Fallback for older versions or build issues
+  console.warn(
+    "Failed to load prism-react-renderer themes, using fallback:",
+    error.message
+  );
+  lightTheme = {
+    plain: {
+      color: "#24292e",
+      backgroundColor: "#ffffff",
+    },
+    styles: [],
+  };
+}
 
 module.exports = {
   ...lightTheme,

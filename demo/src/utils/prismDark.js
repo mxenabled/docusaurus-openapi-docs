@@ -5,8 +5,25 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const { themes } = require("prism-react-renderer");
-const darkTheme = themes.vsDark;
+// Handle different prism-react-renderer versions and environments
+let darkTheme;
+try {
+  const { themes } = require("prism-react-renderer");
+  darkTheme = themes.vsDark || themes.oneDark;
+} catch (error) {
+  // Fallback for older versions or build issues
+  console.warn(
+    "Failed to load prism-react-renderer themes, using fallback:",
+    error.message
+  );
+  darkTheme = {
+    plain: {
+      color: "#D4D4D4",
+      backgroundColor: "#212121",
+    },
+    styles: [],
+  };
+}
 
 module.exports = {
   plain: {

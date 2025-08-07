@@ -2,8 +2,18 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const { DOCUSAURUS_VERSION } = require("@docusaurus/utils");
-const lightTheme = require("./src/utils/prismLight.js");
-const darkTheme = require("./src/utils/prismDark.js");
+
+// Handle prism-react-renderer themes with fallback
+let lightTheme, darkTheme;
+try {
+  const { themes } = require("prism-react-renderer");
+  lightTheme = themes.github;
+  darkTheme = themes.vsDark;
+} catch (error) {
+  console.warn("Failed to load prism-react-renderer themes:", error.message);
+  lightTheme = {};
+  darkTheme = {};
+}
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
