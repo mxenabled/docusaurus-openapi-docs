@@ -5,10 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { themes } from "prism-react-renderer";
+const { themes } = require("prism-react-renderer");
 const lightTheme = themes.github;
 
-export default {
+module.exports = {
   ...lightTheme,
   styles: [
     ...lightTheme.styles,
