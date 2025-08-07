@@ -20,8 +20,8 @@ find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs sed -i '' 's/Fire
 # Update machine-learning-apps action from @master to specific version
 find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs sed -i '' 's/machine-learning-apps\/actions-app-token@master/machine-learning-apps\/actions-app-token@v1/g'
 
-# Update compressed-size-action from v2 to v3
-find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs sed -i '' 's/preactjs\/compressed-size-action@v2/preactjs\/compressed-size-action@v3/g'
+# Update compressed-size-action from v2 to latest commit (includes Node 20 and updated dependencies)
+find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs sed -i '' 's/preactjs\/compressed-size-action@v2/preactjs\/compressed-size-action@2a937a1/g'
 
 echo "Done updating GitHub Actions!"
 
