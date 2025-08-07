@@ -9,6 +9,8 @@
 import React, { useState } from "react";
 
 import { useDoc } from "@docusaurus/theme-common/internal";
+import { ParameterObject } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
+import { ApiItem } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
 import sdk from "@paloaltonetworks/postman-collection";
 import Accept from "@theme/ApiExplorer/Accept";
 import Authorization from "@theme/ApiExplorer/Authorization";
@@ -25,8 +27,6 @@ import {
 } from "@theme/ApiExplorer/Response/slice";
 import Server from "@theme/ApiExplorer/Server";
 import { useTypedDispatch, useTypedSelector } from "@theme/ApiItem/hooks";
-import { ParameterObject } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
-import { ApiItem } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
 import { FormProvider, useForm } from "react-hook-form";
 
 import makeRequest from "./makeRequest";
