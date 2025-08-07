@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "18"
           cache: yarn
-      - uses: preactjs/compressed-size-action@2a937a1
+      - uses: preactjs/compressed-size-action@2a937a1dd255ef04f3ee3611816b630873f5faa3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           build-script: build
