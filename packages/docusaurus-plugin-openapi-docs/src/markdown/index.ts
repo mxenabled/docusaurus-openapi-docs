@@ -5,13 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import {
-  ContactObject,
-  LicenseObject,
-  // MediaTypeObject,
-  SecuritySchemeObject,
-} from "../openapi/types";
-import { ApiPageMetadata, InfoPageMetadata, TagPageMetadata } from "../types";
 import { createAuthentication } from "./createAuthentication";
 import { createContactInfo } from "./createContactInfo";
 // import { createDeprecationNotice } from "./createDeprecationNotice";
@@ -28,6 +21,13 @@ import { createTermsOfService } from "./createTermsOfService";
 // import { createVendorExtensions } from "./createVendorExtensions";
 import { createVersionBadge } from "./createVersionBadge";
 import { greaterThan, lessThan, render } from "./utils";
+import {
+  ContactObject,
+  LicenseObject,
+  // MediaTypeObject,
+  SecuritySchemeObject,
+} from "../openapi/types";
+import { ApiPageMetadata, InfoPageMetadata, TagPageMetadata } from "../types";
 
 // interface Props {
 //   title: string;
@@ -95,7 +95,7 @@ ApiPageMetadata) {
     `import TabItem from "@theme/TabItem";\n`,
     // create("Layout", {
     //   children: [
-    description ? `\n\n${description.trim()}\n\n` : "",
+    createDescription(description),
     createEndpoint(method, path),
     createParamsDetails({ parameters, type: "path" }),
     createParamsDetails({ parameters, type: "query" }),

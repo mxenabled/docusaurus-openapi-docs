@@ -15,12 +15,6 @@ import { HtmlClassNameProvider } from "@docusaurus/theme-common";
 import { DocProvider } from "@docusaurus/theme-common/internal";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useIsBrowser from "@docusaurus/useIsBrowser";
-import { createAuth } from "@theme/ApiExplorer/Authorization/slice";
-import { createPersistanceMiddleware } from "@theme/ApiExplorer/persistanceMiddleware";
-import DocItemLayout from "@theme/ApiItem/Layout";
-import type { Props } from "@theme/DocItem";
-import DocItemMetadata from "@theme/DocItem/Metadata";
-import clsx from "clsx";
 import {
   ServerObject,
   ParameterObject,
@@ -30,6 +24,12 @@ import type {
   DocFrontMatter,
   ThemeConfig,
 } from "@mxenabled/docusaurus-theme-openapi-docs/src/types";
+import { createAuth } from "@theme/ApiExplorer/Authorization/slice";
+import { createPersistanceMiddleware } from "@theme/ApiExplorer/persistanceMiddleware";
+import DocItemLayout from "@theme/ApiItem/Layout";
+import type { Props } from "@theme/DocItem";
+import DocItemMetadata from "@theme/DocItem/Metadata";
+import clsx from "clsx";
 import { Provider } from "react-redux";
 
 import { createStoreWithoutState, createStoreWithState } from "./store";

@@ -5,10 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import { SchemaObject } from "../openapi/types";
 import { createDescription } from "./createDescription";
 import { getQualifierMessage, getSchemaName } from "./schema";
 import { create } from "./utils";
+import { SchemaObject } from "../openapi/types";
 
 const jsonSchemaMergeAllOf = require("json-schema-merge-allof");
 

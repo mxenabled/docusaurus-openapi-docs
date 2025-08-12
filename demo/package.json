@@ -28,7 +28,7 @@
     "@mxenabled/docusaurus-plugin-openapi-docs": "^2.0.3",
     "@mxenabled/docusaurus-theme-openapi-docs": "^2.0.3",
     "clsx": "^1.1.1",
-    "prism-react-renderer": "^2.1.0",
+    "prism-react-renderer": "2.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

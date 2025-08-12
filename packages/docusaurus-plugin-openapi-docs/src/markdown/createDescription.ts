@@ -5,15 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import { greaterThan, codeFence } from "./utils";
+import { greaterThan, lessThan, codeFence } from "./utils";
 
 export function createDescription(description: string | undefined) {
   if (!description) {
     return "";
   }
   return `\n\n${description
-    .replace(greaterThan, "\\>")
+    .replace(lessThan, "&lt;")
+    .replace(greaterThan, "&gt;")
     .replace(codeFence, function (match) {
-      return match.replace(/\\>/g, ">");
+      return match.replace(/&gt;/g, ">").replace(/&lt;/g, "<");
     })}\n\n`;
 }

@@ -5,17 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import { create, guard } from "./utils";
-import { LogoObject } from "../openapi/types";
+import React from "react";
 
-export function createLogo(
-  logo: LogoObject | undefined,
-  darkLogo: LogoObject | undefined
-) {
-  return guard(logo || darkLogo, () => [
-    create("ApiLogo", {
-      logo: logo,
-      darkLogo: darkLogo,
-    }),
-  ]);
+interface RequestBodyDetailsBaseProps {
+  children?: React.ReactNode;
+  [key: string]: any;
+}
+
+export default function RequestBodyDetailsBase({
+  children,
+  ...props
+}: RequestBodyDetailsBaseProps) {
+  return <div style={{ margin: "8px 0" }}>{children}</div>;
 }

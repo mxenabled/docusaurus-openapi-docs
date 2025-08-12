@@ -25,7 +25,7 @@ try {
   };
 }
 
-const theme = {
+module.exports = {
   ...lightTheme,
   styles: [
     ...lightTheme.styles,
@@ -116,5 +116,3 @@ const theme = {
     },
   ],
 };
-
-export default theme;

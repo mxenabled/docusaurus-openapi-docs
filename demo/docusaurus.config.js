@@ -3,6 +3,18 @@
 
 const { DOCUSAURUS_VERSION } = require("@docusaurus/utils");
 
+// Handle prism-react-renderer themes with fallback
+let lightTheme, darkTheme;
+try {
+  const { themes } = require("prism-react-renderer");
+  lightTheme = themes.github;
+  darkTheme = themes.vsDark;
+} catch (error) {
+  console.warn("Failed to load prism-react-renderer themes:", error.message);
+  lightTheme = {};
+  darkTheme = {};
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Docusaurus OpenAPI Docs",
@@ -25,8 +37,6 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl:
             "https://github.com/PaloAltoNetworks/docusaurus-openapi-docs/tree/main/demo",
-          docLayoutComponent: "@theme/DocRoot",
-          docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
         },
         blog: false,
         theme: {
@@ -136,6 +146,8 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Palo Alto Networks, Inc. Built with Docusaurus ${DOCUSAURUS_VERSION}.`,
       },
       prism: {
+        theme: lightTheme,
+        darkTheme: darkTheme,
         additionalLanguages: ["ruby", "csharp", "php", "java", "powershell"],
       },
       languageTabs: [
@@ -268,14 +280,4 @@ const config = {
   ],
 };
 
-async function createConfig() {
-  const lightTheme = (await import("./src/utils/prismLight.mjs")).default;
-  const darkTheme = (await import("./src/utils/prismDark.mjs")).default;
-  // @ts-expect-error: we know it exists, right
-  config.themeConfig.prism.theme = lightTheme;
-  // @ts-expect-error: we know it exists, right
-  config.themeConfig.prism.darkTheme = darkTheme;
-  return config;
-}
-
-module.exports = createConfig;
+module.exports = config;
