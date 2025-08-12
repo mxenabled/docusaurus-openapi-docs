@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "watch": "lerna run watch --parallel",
     "watch:demo": "nodemon --watch \"./packages/*/lib/**/*.*\" --exec \"yarn start --no-open\"",
-    "build": "yarn build-packages && yarn build-demo",
+    "build": "yarn clean && yarn build-packages && yarn build-demo",
     "build-packages": "lerna run build --no-private --stream",
     "build-demo": "yarn workspace demo build",
     "canary": "yarn canary:bumpVersion && yarn canary:publish",
