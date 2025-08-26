@@ -5,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import { ThemeConfig } from "@mxenabled/docusaurus-theme-openapi-docs/src/types";
 import { Middleware } from "@reduxjs/toolkit";
 import {
   setAuthData,
@@ -15,6 +14,7 @@ import { AppDispatch, RootState } from "@theme/ApiItem/store";
 /* eslint-disable import/no-extraneous-dependencies*/
 
 import { createStorage, hashArray } from "./storage-utils";
+import { ThemeConfig } from "../../types";
 
 export function createPersistanceMiddleware(options: ThemeConfig["api"]) {
   const persistanceMiddleware: Middleware<{}, RootState, AppDispatch> =
