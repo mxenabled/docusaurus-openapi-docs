@@ -7,6 +7,7 @@
 
 import React from "react";
 
+import { RequestBodyObject } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
 import json2xml from "@theme/ApiExplorer/Body/json2xml";
 import FormFileUpload from "@theme/ApiExplorer/FormFileUpload";
 import FormItem from "@theme/ApiExplorer/FormItem";
@@ -17,7 +18,6 @@ import { useTypedDispatch, useTypedSelector } from "@theme/ApiItem/hooks";
 import Markdown from "@theme/Markdown";
 import SchemaTabs from "@theme/SchemaTabs";
 import TabItem from "@theme/TabItem";
-import { RequestBodyObject } from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
 import format from "xml-formatter";
 
 import {

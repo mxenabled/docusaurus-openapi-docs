@@ -5,10 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
+import { create } from "./utils";
 import { ApiItem } from "../types";
 // import { createDetails } from "./createDetails";
 // import { createDetailsSummary } from "./createDetailsSummary";
-import { create } from "./utils";
 
 interface Props {
   parameters: ApiItem["parameters"];
