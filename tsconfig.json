@@ -1,18 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "ESNext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "lib": ["ESNext", "DOM"],
-    "types": ["node", "react", "react-dom"]
+    "noEmit": true
   },
-  "include": ["scripts", "packages/**/*", "demo/**/*"]
+  "include": ["scripts"]
 }
