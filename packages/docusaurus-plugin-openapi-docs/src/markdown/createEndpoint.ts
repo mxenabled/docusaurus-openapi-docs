@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import { ApiPageMetadata } from "../types";
 import { create } from "./utils";
+import { ApiPageMetadata } from "../types";
 
 type Method = Pick<ApiPageMetadata, "api">["api"]["method"];
 type Path = Pick<ApiPageMetadata, "api">["api"]["path"];

@@ -9,12 +9,12 @@ import React from "react";
 
 import { usePrismTheme } from "@docusaurus/theme-common";
 import { useDoc } from "@docusaurus/theme-common/internal";
+import { ApiItem } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
 import ApiCodeBlock from "@theme/ApiExplorer/ApiCodeBlock";
 import { useTypedDispatch, useTypedSelector } from "@theme/ApiItem/hooks";
 import SchemaTabs from "@theme/SchemaTabs";
 import TabItem from "@theme/TabItem";
 import clsx from "clsx";
-import { ApiItem } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
 
 import { clearResponse, clearCode, clearHeaders } from "./slice";
 
