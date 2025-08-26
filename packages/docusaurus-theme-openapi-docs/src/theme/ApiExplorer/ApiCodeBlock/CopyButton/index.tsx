@@ -7,18 +7,25 @@
 
 import React, { useCallback, useState, useRef, useEffect } from "react";
 
-import { CopyButtonProps } from "@docusaurus/theme-common/internal";
+import { CopyButtonProps as BaseCopyButtonProps } from "@docusaurus/theme-common/internal";
 import { translate } from "@docusaurus/Translate";
 import clsx from "clsx";
 import copy from "copy-text-to-clipboard";
 
+interface CopyButtonProps extends BaseCopyButtonProps {
+  code: string;
+  className?: string;
+  showText?: boolean;
+}
+
 export default function CopyButton({
   code,
   className,
-  showText,
-}: CopyButtonProps & { showText?: boolean }): React.JSX.Element {
+  showText = false,
+}: CopyButtonProps): React.ReactElement {
   const [isCopied, setIsCopied] = useState(false);
   const copyTimeout = useRef<number | undefined>(undefined);
+
   const handleCopyCode = useCallback(() => {
     copy(code);
     setIsCopied(true);
@@ -27,7 +34,9 @@ export default function CopyButton({
     }, 1000);
   }, [code]);
 
-  useEffect(() => () => window.clearTimeout(copyTimeout.current), []);
+  useEffect(() => {
+    return () => window.clearTimeout(copyTimeout.current);
+  }, []);
 
   return (
     <button
@@ -58,9 +67,7 @@ export default function CopyButton({
       )}
       onClick={handleCopyCode}
     >
-      {showText ? (
-        <span className="font-semibold text-base mr-2">Copy</span>
-      ) : null}
+      {showText && <span className="font-semibold text-base mr-2">Copy</span>}
       <span
         className="openapi-explorer__code-block-copy-btn-icons"
         aria-hidden="true"
