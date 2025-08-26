@@ -79,6 +79,9 @@
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
   },
+  "resolutions": {
+    "convert-source-map": "^2.0.0"
+  },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
