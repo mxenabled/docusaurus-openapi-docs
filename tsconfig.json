@@ -1,20 +1,18 @@
 {
   "compilerOptions": {
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "noEmit": true,
-
     "target": "ES6",
     "module": "ESNext",
     "moduleResolution": "node",
-    "strict": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-
+    "strict": true,
+    "noEmit": true,
     "jsx": "react-jsx",
     "lib": ["ESNext", "DOM"],
     "types": ["node", "react", "react-dom"]
   },
-  "include": ["scripts", "packages/**/*"]
+  "include": ["scripts", "packages/**/*", "demo/**/*"]
 }
