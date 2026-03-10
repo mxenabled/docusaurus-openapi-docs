@@ -5,6 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
+import { createVersionBadge } from "./createVersionBadge";
+import { greaterThan, lessThan, render } from "./utils";
 import {
   ContactObject,
   LicenseObject,
@@ -12,22 +14,6 @@ import {
   SecuritySchemeObject,
 } from "../openapi/types";
 import { ApiPageMetadata, InfoPageMetadata, TagPageMetadata } from "../types";
-import { createAuthentication } from "./createAuthentication";
-import { createContactInfo } from "./createContactInfo";
-// import { createDeprecationNotice } from "./createDeprecationNotice";
-import { createDescription } from "./createDescription";
-import { createDownload } from "./createDownload";
-import { createEndpoint } from "./createEndpoint";
-import { createLicense } from "./createLicense";
-import { createLogo } from "./createLogo";
-import { createParamsDetails } from "./createParamsDetails";
-// import { createRequestBodyDetails } from "./createRequestBodyDetails";
-import { createRequestSchema } from "./createRequestSchema";
-import { createStatusCodes } from "./createStatusCodes";
-import { createTermsOfService } from "./createTermsOfService";
-// import { createVendorExtensions } from "./createVendorExtensions";
-import { createVersionBadge } from "./createVersionBadge";
-import { greaterThan, lessThan, render } from "./utils";
 
 // interface Props {
 //   title: string;

@@ -5,18 +5,18 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import { MediaTypeObject } from "../openapi/types";
 import { createDescription } from "./createDescription";
 // import { createDetails } from "./createDetails";
 // import { createDetailsSummary } from "./createDetailsSummary";
 import { getRequestBody as getResponseBody } from "./createRequestSchema";
+import { create } from "./utils";
+import { MediaTypeObject } from "../openapi/types";
 // import { createNodes } from "./createSchema";
 // import {
 //   createExampleFromSchema,
 //   createResponseExample,
 //   createResponseExamples,
 // } from "./createStatusCodes";
-import { create } from "./utils";
 
 interface Props {
   style?: any;
