@@ -12,13 +12,32 @@ function fetchWithtimeout(
   url: string,
   options: RequestInit,
   timeout = 5000
-): any {
-  return Promise.race([
-    fetch(url, options),
-    new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Request timed out")), timeout)
-    ),
-  ]);
+): Promise<Response> {
+  let parsedUrl: URL;
+  try {
+    parsedUrl = new URL(url);
+  } catch (e) {
+    throw new Error("Invalid URL");
+  }
+
+  if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+    throw new Error(`Forbidden protocol: ${parsedUrl.protocol}`);
+  }
+
+  const forbiddenHosts = ['localhost', '127.0.0.1', '169.254.169.254'];
+  if (forbiddenHosts.includes(parsedUrl.hostname)) {
+    throw new Error("Access to internal resources is forbidden");
+  }
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  return fetch(parsedUrl.toString(), {
+    ...options,
+    signal: controller.signal,
+  }).finally(() => {
+    clearTimeout(id);
+  });
 }
 
 async function loadImage(content: Blob): Promise<string | ArrayBuffer | null> {
@@ -223,7 +242,7 @@ async function makeRequest(
       }
 
       if (fileExtension) {
-        return response.blob().then((blob: Blob) => {
+        return response.blob().then((blob: any) => {
           const url = window.URL.createObjectURL(blob);
 
           const link = document.createElement("a");
@@ -231,16 +250,14 @@ async function makeRequest(
           // Now the file name includes the extension
           link.setAttribute("download", `file${fileExtension}`);
 
-          // These lines are necessary to make the link click in Firefox
-          const hiddenContainer = document.createElement("div");
-          hiddenContainer.style.display = "none";
-          hiddenContainer.appendChild(link);
-          document.body.appendChild(hiddenContainer);
+          // These two lines are necessary to make the link click in Firefox
+          link.style.display = "none";
+          document.body.appendChild(link);
 
           link.click();
 
           // After link is clicked, it's safe to remove it.
-          setTimeout(() => document.body.removeChild(hiddenContainer), 0);
+          setTimeout(() => document.body.removeChild(link), 0);
 
           return response;
         });
