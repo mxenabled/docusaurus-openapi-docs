@@ -2,6 +2,7 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const { DOCUSAURUS_VERSION } = require("@docusaurus/utils");
+require("dotenv").config();
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -190,9 +191,9 @@ const config = {
         },
       ],
       algolia: {
-        apiKey: "441074cace987cbf4640c039ebed303c",
-        appId: "J0EABTYI1A",
-        indexName: "docusaurus-openapi",
+        apiKey: process.env.ALGOLIA_API_KEY,
+        appId: process.env.ALGOLIA_APP_ID,
+        indexName: process.env.ALGOLIA_INDEX_NAME,
       },
       announcementBar: {
         id: "announcementBar_1",

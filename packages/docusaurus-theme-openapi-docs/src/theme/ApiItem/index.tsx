@@ -15,21 +15,22 @@ import { HtmlClassNameProvider } from "@docusaurus/theme-common";
 import { DocProvider } from "@docusaurus/theme-common/internal";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useIsBrowser from "@docusaurus/useIsBrowser";
+import {
+  ServerObject,
+  ParameterObject,
+} from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
+import type { ApiItem as ApiItemType } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
+/* eslint-disable import/no-extraneous-dependencies*/
+import type {
+  DocFrontMatter,
+  ThemeConfig,
+} from "@mxenabled/docusaurus-theme-openapi-docs/src/types";
 import { createAuth } from "@theme/ApiExplorer/Authorization/slice";
 import { createPersistanceMiddleware } from "@theme/ApiExplorer/persistanceMiddleware";
 import DocItemLayout from "@theme/ApiItem/Layout";
 import type { Props } from "@theme/DocItem";
 import DocItemMetadata from "@theme/DocItem/Metadata";
 import clsx from "clsx";
-import {
-  ServerObject,
-  ParameterObject,
-} from "@mxenabled/docusaurus-plugin-openapi-docs/src/openapi/types";
-import type { ApiItem as ApiItemType } from "@mxenabled/docusaurus-plugin-openapi-docs/src/types";
-import type {
-  DocFrontMatter,
-  ThemeConfig,
-} from "@mxenabled/docusaurus-theme-openapi-docs/src/types";
 import { Provider } from "react-redux";
 
 import { createStoreWithoutState, createStoreWithState } from "./store";
@@ -44,6 +45,7 @@ if (ExecutionEnvironment.canUseDOM) {
 
 interface DocFM extends DocFrontMatter {
   readonly api_reference?: boolean;
+  readonly info_path?: string;
 }
 
 export interface SampleResponses {

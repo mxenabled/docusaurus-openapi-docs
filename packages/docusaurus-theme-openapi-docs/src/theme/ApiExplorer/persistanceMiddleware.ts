@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
+/* eslint-disable import/no-extraneous-dependencies*/
 import { ThemeConfig } from "@mxenabled/docusaurus-theme-openapi-docs/src/types";
 import { Middleware } from "@reduxjs/toolkit";
 import {
@@ -12,7 +13,6 @@ import {
   setSelectedAuth,
 } from "@theme/ApiExplorer/Authorization/slice";
 import { AppDispatch, RootState } from "@theme/ApiItem/store";
-/* eslint-disable import/no-extraneous-dependencies*/
 
 import { createStorage, hashArray } from "./storage-utils";
 
