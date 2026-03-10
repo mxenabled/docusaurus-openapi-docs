@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import lightTheme from "prism-react-renderer/themes/github/index.cjs.js";
+import { github as lightTheme } from "prism-react-renderer/themes";
 
 export default {
   ...lightTheme,
