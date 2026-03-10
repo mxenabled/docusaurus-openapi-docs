@@ -12,13 +12,32 @@ function fetchWithtimeout(
   url: string,
   options: RequestInit,
   timeout = 5000
-): any {
-  return Promise.race([
-    fetch(url, options),
-    new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Request timed out")), timeout)
-    ),
-  ]);
+): Promise<Response> {
+  let parsedUrl: URL;
+  try {
+    parsedUrl = new URL(url);
+  } catch (e) {
+    throw new Error("Invalid URL");
+  }
+
+  if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+    throw new Error(`Forbidden protocol: ${parsedUrl.protocol}`);
+  }
+
+  const forbiddenHosts = ['localhost', '127.0.0.1', '169.254.169.254'];
+  if (forbiddenHosts.includes(parsedUrl.hostname)) {
+    throw new Error("Access to internal resources is forbidden");
+  }
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  return fetch(parsedUrl.toString(), {
+    ...options,
+    signal: controller.signal,
+  }).finally(() => {
+    clearTimeout(id);
+  });
 }
 
 async function loadImage(content: Blob): Promise<string | ArrayBuffer | null> {
