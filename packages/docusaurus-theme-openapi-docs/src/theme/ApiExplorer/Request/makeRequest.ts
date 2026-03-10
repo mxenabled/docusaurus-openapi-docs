@@ -223,7 +223,7 @@ async function makeRequest(
       }
 
       if (fileExtension) {
-        return response.blob().then((blob: any) => {
+        return response.blob().then((blob: Blob) => {
           const url = window.URL.createObjectURL(blob);
 
           const link = document.createElement("a");
@@ -231,14 +231,16 @@ async function makeRequest(
           // Now the file name includes the extension
           link.setAttribute("download", `file${fileExtension}`);
 
-          // These two lines are necessary to make the link click in Firefox
-          link.style.display = "none";
-          document.body.appendChild(link);
+          // These lines are necessary to make the link click in Firefox
+          const hiddenContainer = document.createElement("div");
+          hiddenContainer.style.display = "none";
+          hiddenContainer.appendChild(link);
+          document.body.appendChild(hiddenContainer);
 
           link.click();
 
           // After link is clicked, it's safe to remove it.
-          setTimeout(() => document.body.removeChild(link), 0);
+          setTimeout(() => document.body.removeChild(hiddenContainer), 0);
 
           return response;
         });
